@@ -1,0 +1,26 @@
+{
+    "name": "geoblog",
+    "version": "0.0.1",
+    "description": "This is George 's blog",
+    "keywords": [
+        "front-end",
+        "java",
+        "nodejs",
+        "npm",
+        "angularJS",
+        "react"
+    ],
+    "homepage": "http://JSLite.io",
+    "author": "GeorgeZou <zousongqi1996@gmail.com>",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "licenses": "Apache",
+    "idoc": {
+        "theme": "handbook",
+        "md": [
+            "index.md"
+        ]
+    }
+}
