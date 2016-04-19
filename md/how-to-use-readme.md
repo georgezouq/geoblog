@@ -1,6 +1,7 @@
 #Github Readme 排版解析
     
-    README 文件的后缀名是md，md是markdown的缩写。markdown是一种编辑博客的语言，Github在语法标准markdown上做了修改，称之为Github Flavored Markdown GFM 不是 GFW=.=
+>README 文件的后缀名是md，md是markdown的缩写。markdown是一种编辑博客的语言，
+>Github在语法标准markdown上做了修改，称之为Github Flavored Markdown GFM 不是 GFW=.=
 
 ##一、关于标题
 
@@ -14,7 +15,7 @@
 除此之外，你也会发现大，中标题下面都有一条横线，没这就是= 和-的显示结果。如果你只输入=，那么他就会显示一条横线。
 
 除此之外，标题还有等级表示法，分为六级，显示的文本大小一次减少，不同等级之间以井号#的个数来标识
-```bash
+```mark
 #一级标题
 ##二级标题
 ###三级标题
