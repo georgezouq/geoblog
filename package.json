@@ -20,7 +20,20 @@
     "idoc": {
         "theme": "handbook",
         "md": [
-            "index.md"
+            "index.md",
+            {
+                "AngularJS": [
+                    "angular-coding.md"
+                ]
+            },
+            {
+                "前端设计思想": []
+            },
+            {
+                "工具使用": [
+                    "how-to-use-readme.md"
+                ]
+            }
         ]
     }
 }
