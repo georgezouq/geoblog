@@ -1,9 +1,12 @@
-#Less与Sass解析
+
+# Less与Sass解析
+
   首先我们要明确一个观点，尽管Less和Sass语法上有一些共性，但是Less !== Sass。当我们构建一个网站的时候，
 我们可能会需要调色板这个功能，即拥有提供固定的可选择样式，避免样式跳跃过大。这个时候我们就用到了Less和Sass，
 事实证明，他们的功能要比这个多得多。
 
-###Less 和 Sass 语法共性
+### Less 和 Sass 语法共性
+
 1.混入（Minxins）—— class中的class
 2.参数混入 —— 可以传递参数的class
 3.嵌套规则 —— Class中嵌套class，从而较少重复的代码
