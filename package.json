@@ -23,11 +23,8 @@
             "index.md",
             {
                 "AngularJS": [
-                    "angular-coding.md"
+                    "AngularJS 编码规范.md"
                 ]
-            },
-            {
-                "前端设计思想": []
             },
             {
                 "工具使用": [
@@ -37,6 +34,12 @@
             {
                 "CSS": [
                     "Less与Sass.md"
+                ]
+            },
+            {
+                "JQuery相关": [
+                    "JQuery-Sortable排序.md",
+                    "JqueryUI-Draggable(拖动).md"
                 ]
             }
         ]

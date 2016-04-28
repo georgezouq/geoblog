@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>geoblog</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+</head>
+<body>
+<div class="nav">
+    <div class="logo">
+        
+            geoblog
+        
+    </div>
+<ul><li><a href="../../index.html">index</a></li><li><a href="#"><span></span>AngularJS</a><ul><li><a href="../../html/AngularJS/AngularJS 编码规范.html">AngularJS 编码规范</a></li></ul></li><li><a href="#"><span></span>工具使用</a><ul><li><a href="../../html/工具使用/如何编写GitHub的ReadMe.html">如何编写GitHub的ReadMe</a></li></ul></li><li><a href="#"><span></span>CSS</a><ul><li><a href="../../html/CSS/Less与Sass.html">Less与Sass</a></li></ul></li><li><a href="#"><span></span>JQuery相关</a><ul><li class="active"><a href="../../html/JQuery相关/JQuery-Sortable排序.html">JQuery-Sortable排序</a></li><li><a href="../../html/JQuery相关/JqueryUI-Draggable(拖动).html">JqueryUI-Draggable(拖动)</a></li></ul></li></ul></div>
+
+
+<div class="warpper">
+
+    <div class="page-toc">
+        <ul><li><a href="#t0JQuery UI Sortable">JQuery UI Sortable</a><ul><li><a href="#t1默认功能">默认功能</a></li><li><a href="#t2连接列表">连接列表</a></li><li><a href="#t3显示为网格">显示为网格</a></li></ul></li></ul>
+    </div>
+    
+    <div class="content markdown-body">
+        <h1 id="t0JQuery UI Sortable">JQuery UI Sortable <a href="#t0JQuery UI Sortable"> # </a></h1>
+<h2 id="t1&#x9ED8;&#x8BA4;&#x529F;&#x80FD;">&#x9ED8;&#x8BA4;&#x529F;&#x80FD; <a href="#t1&#x9ED8;&#x8BA4;&#x529F;&#x80FD;"> # </a></h2>
+<p>  &#x5728;&#x4EFB;&#x610F;&#x7684;DOM&#x5143;&#x7D20;&#x4E0A;&#x542F;&#x7528;sortable&#x529F;&#x80FD;&#xFF0C;&#x901A;&#x8FC7;&#x9F20;&#x6807;&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x5143;&#x7D20;&#x5230;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4F4D;&#x7F6E;&#x5176;&#x4ED6;&#x7684;&#x6761;&#x76EE;&#x4F1A;&#x81EA;&#x52A8;&#x8C03;&#x6574;&#x3002;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;sortable&#x5404;&#x4E2A;&#x6761;&#x76EE;&#x5171;&#x4EAB;draggable&#x5C5E;&#x6027;</p>
+<p>&#xB7; main.js</p>
+<pre><code class="lang-javascript">
+$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  $( <span class="hljs-string">&quot;#sortable&quot;</span> ).sortable();
+  $( <span class="hljs-string">&quot;#sortable&quot;</span> ).disableSelection();
+});
+</code></pre>
+<p>&#xB7; index.html</p>
+<pre><code class="lang-html">  ...
+
+  <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;sortable&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>Item 4<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>Item 5<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>Item 6<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>Item 7<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+
+  ...
+</code></pre>
+<h2 id="t2&#x8FDE;&#x63A5;&#x5217;&#x8868;">&#x8FDE;&#x63A5;&#x5217;&#x8868; <a href="#t2&#x8FDE;&#x63A5;&#x5217;&#x8868;"> # </a></h2>
+<p>  &#x901A;&#x8FC7;&#x5411;connectWith &#x9009;&#x9879;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x9009;&#x62E9;&#x5668;&#xFF0C;&#x5E76;&#x628A;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#x6392;&#x5E8F;&#x5230;&#x4E24;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x4E2D;&#xFF0C;&#x53CD;&#x4E4B;&#x4EA6;&#x7136;&#x3002;</p>
+<pre><code class="lang-javascript">
+$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  $( <span class="hljs-string">&quot;#sortable1, #sortable2&quot;</span> ).sortable({
+    connectWith: <span class="hljs-string">&quot;.connectedSortable&quot;</span>
+  }).disableSelection();
+});
+</code></pre>
+<h2 id="t3&#x663E;&#x793A;&#x4E3A;&#x7F51;&#x683C;">&#x663E;&#x793A;&#x4E3A;&#x7F51;&#x683C; <a href="#t3&#x663E;&#x793A;&#x4E3A;&#x7F51;&#x683C;"> # </a></h2>
+<p>&#x5F53;&#x62D6;&#x62FD;&#x4E00;&#x4E2A;sortable&#x6761;&#x76EE;&#x5230;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4F4D;&#x7F6E;&#x65F6;&#xFF0C;&#x5176;&#x4ED6;&#x6761;&#x76EE;&#x4E3A;&#x8BE5;&#x6761;&#x76EE;&#x817E;&#x51FA;&#x7A7A;&#x95F4;&#x3002;&#x60F3;placeholder&#x9009;&#x9879;&#x4F20;&#x9012;&#x4E00;&#x4E2A;class&#x6765;&#x5B9A;&#x4E49;&#x53EF;&#x89C6;&#x5316;&#x7684;&#x7A7A;&#x767D;&#x7684;&#x6837;&#x5F0F;&#x3002;&#x4F7F;&#x7528;&#x5E03;&#x5C14;&#x503C;&#x7684;forcePlaceholderSize&#x9009;&#x9879;&#x6765;&#x8BBE;&#x7F6E;&#x5360;&#x4F4D;&#x7B26;&#x7684;&#x5C3A;&#x5BF8;</p>
+
+        <div class="copyright">Powered by <a href="https://github.com/jaywcjlove/idoc" target="_blank">idoc</a>. Dependence <a href="https://nodejs.org">Node.js</a> run.</div>
+    </div>
+    
+</div>
+
+
+</body>
+</html>

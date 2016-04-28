@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>geoblog</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+</head>
+<body>
+<div class="nav">
+    <div class="logo">
+        
+            geoblog
+        
+    </div>
+<ul><li><a href="../../index.html">index</a></li><li><a href="#"><span></span>AngularJS</a><ul><li><a href="../../html/AngularJS/AngularJS 编码规范.html">AngularJS 编码规范</a></li></ul></li><li><a href="#"><span></span>工具使用</a><ul><li><a href="../../html/工具使用/如何编写GitHub的ReadMe.html">如何编写GitHub的ReadMe</a></li></ul></li><li><a href="#"><span></span>CSS</a><ul><li><a href="../../html/CSS/Less与Sass.html">Less与Sass</a></li></ul></li><li><a href="#"><span></span>JQuery相关</a><ul><li><a href="../../html/JQuery相关/JQuery-Sortable排序.html">JQuery-Sortable排序</a></li><li class="active"><a href="../../html/JQuery相关/JqueryUI-Draggable(拖动).html">JqueryUI-Draggable(拖动)</a></li></ul></li></ul></div>
+
+
+<div class="warpper">
+
+    <div class="page-toc">
+        <ul><li><a href="#t0JQuery UI 实例 - 拖动 (Draggable)">JQuery UI 实例 - 拖动 (Draggable)</a><ul><li><a href="#t1默认功能">默认功能</a></li><li><a href="#t2自动滚动">自动滚动</a></li><li><a href="#t3约束运动">约束运动</a></li><li><a href="#t4光标样式 (cursorAt)">光标样式 (cursorAt)</a></li><li><a href="#t5拖动（Draggable） + 排序（Sortable）">拖动（Draggable） + 排序（Sortable）</a></li></ul></li></ul>
+    </div>
+    
+    <div class="content markdown-body">
+        <h1 id="t0JQuery UI &#x5B9E;&#x4F8B; - &#x62D6;&#x52A8; (Draggable)">JQuery UI &#x5B9E;&#x4F8B; - &#x62D6;&#x52A8; (Draggable) <a href="#t0JQuery UI &#x5B9E;&#x4F8B; - &#x62D6;&#x52A8; (Draggable)"> # </a></h1>
+<h2 id="t1&#x9ED8;&#x8BA4;&#x529F;&#x80FD;">&#x9ED8;&#x8BA4;&#x529F;&#x80FD; <a href="#t1&#x9ED8;&#x8BA4;&#x529F;&#x80FD;"> # </a></h2>
+<p>&#x5728;&#x4EFB;&#x610F;&#x7684;DOM&#x5143;&#x7D20;&#x4E0A;&#x542F;&#x7528;draggable&#x529F;&#x80FD;&#xFF0C;&#x901A;&#x8FC7;&#x9F20;&#x6807;&#x70B9;&#x51FB;&#x5E76;&#x5728;&#x89C6;&#x533A;&#x4E2D;&#x62D6;&#x52A8;&#x6765;&#x79FB;&#x52A8;draggable&#x5BF9;&#x8C61;&#x3002;</p>
+<pre><code class="lang-html">  ...
+  <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    $(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      $(<span class="hljs-string">&apos;#draggable&apos;</span>).draggable();
+    });
+  </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-widget-content&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>&#x8BF7;&#x62D6;&#x52A8;&#x6211;!<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<h2 id="t2&#x81EA;&#x52A8;&#x6EDA;&#x52A8;">&#x81EA;&#x52A8;&#x6EDA;&#x52A8; <a href="#t2&#x81EA;&#x52A8;&#x6EDA;&#x52A8;"> # </a></h2>
+<p>&#x5F53;draggable&#x79FB;&#x52A8;&#x5230;&#x89C6;&#x533A;&#x4E4B;&#x5916;&#x65F6;&#x81EA;&#x52A8;&#x6EDA;&#x52A8;&#x6587;&#x6863;&#xFF0C;&#x8BBE;&#x7F6E;scroll&#x9009;&#x9879;&#x4E3A;true&#x6765;&#x542F;&#x52A8;&#x81EA;&#x52A8;&#x6EDA;&#x52A8;&#xFF0C;&#x5F53;&#x6EDA;&#x52A8;&#x89E6;&#x53D1;&#x65F6;&#x8FDB;&#x884C;&#x5FAE;&#x8C03;&#xFF0C;&#x6EDA;&#x52A8;&#x901F;&#x5EA6;&#x662F;&#x901A;&#x8FC7;scrollSensitivity&#x548C;scrollSpeed&#x9009;&#x9879;&#x6765;&#x8BBE;&#x7F6E;&#x7684;&#x3002;</p>
+<p>&#xB7; main.js</p>
+<pre><code class="lang-javascript">  $(<span class="hljs-string">&apos;#draggable&apos;</span>).draggable({scroll:<span class="hljs-literal">true</span>});
+  $(<span class="hljs-string">&apos;#draggable2&apos;</span>).draggable({scroll:<span class="hljs-literal">true</span>,scrollSensitivity:<span class="hljs-number">100</span>});
+  $(<span class="hljs-string">&apos;#draggable3&apos;</span>).draggable({scroll:<span class="hljs-literal">true</span>,scrollSpeed:<span class="hljs-number">100</span>});
+</code></pre>
+<p>&#xB7; index.html</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-widget-content&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Scroll &#x8BBE;&#x7F6E;&#x4E3A; true&#xFF0C;&#x9ED8;&#x8BA4;&#x8BBE;&#x7F6E;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable2&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-widget-content&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>scrollSensitivity &#x8BBE;&#x7F6E;&#x4E3A; 100<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable3&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-widget-content&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>scrollSpeed &#x8BBE;&#x7F6E;&#x4E3A; 100<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">&quot;height: 5000px; width: 1px;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<h2 id="t3&#x7EA6;&#x675F;&#x8FD0;&#x52A8;">&#x7EA6;&#x675F;&#x8FD0;&#x52A8; <a href="#t3&#x7EA6;&#x675F;&#x8FD0;&#x52A8;"> # </a></h2>
+<p>  &#x901A;&#x8FC7;&#x5B9A;&#x4E49;draggable &#x533A;&#x57DF;&#x7684;&#x8FB9;&#x754C;&#x7EA6;&#x675F;&#x6BCF;&#x4E2A;draggable&#x7684;&#x8FD0;&#x52A8;&#xFF0C;&#x8BBE;&#x7F6E;<code>axis</code>&#x9009;&#x9879;&#x6765;&#x9650;&#x5236;draggable&#x7684;&#x8DEF;&#x5F84;&#x4E3A;<code>x&#x8F74;</code> &#x6216;&#x8005;<code>y&#x8F74;</code>&#xFF0C;&#x6216;&#x8005;&#x4F7F;&#x7528;<code>containment</code>&#x9009;&#x9879;&#x6765;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x7236;&#x7EA7;&#x7684;DOM&#x6216;&#x8005;&#x4E00;&#x4E2A;JQuery&#x9009;&#x62E9;&#x5668;&#xFF0C;&#x6BD4;&#x5982;&apos;document&apos;.</p>
+<p>&#xB7; main.js</p>
+<pre><code class="lang-javascript">  $(<span class="hljs-string">&apos;#draggable&apos;</span>).draggable({axis:<span class="hljs-string">&apos;y&apos;</span>});
+  $(<span class="hljs-string">&apos;#draggable2&apos;</span>).draggable({axis:<span class="hljs-string">&apos;x&apos;</span>});
+
+  $(<span class="hljs-string">&apos;#draggable3&apos;</span>).draggable({containment:<span class="hljs-string">&apos;#containment-wrapper&apos;</span>,scroll:<span class="hljs-literal">false</span>});
+  $(<span class="hljs-string">&apos;#draggable5&apos;</span>).draggable({containment:<span class="hljs-string">&apos;parent&apos;</span>});
+</code></pre>
+<p>&#xB7; index.html</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>&#x6CBF;&#x7740;&#x8F74;&#x7EA6;&#x675F;&#x8FD0;&#x52A8;&#xFF1A;<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;draggable ui-widget-content&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>&#x53EA;&#x80FD;&#x5782;&#x76F4;&#x62D6;&#x62FD;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable2&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;draggable ui-widget-content&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>&#x53EA;&#x80FD;&#x6C34;&#x5E73;&#x62D6;&#x62FD;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>&#x6216;&#x8005;&#x5728;&#x53E6;&#x4E00;&#x4E2A; DOM &#x5143;&#x7D20;&#x4E2D;&#x7EA6;&#x675F;&#x8FD0;&#x52A8;&#xFF1A;<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;containment-wrapper&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable3&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;draggable ui-widget-content&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>&#x6211;&#x88AB;&#x7EA6;&#x675F;&#x5728;&#x76D2;&#x5B50;&#x91CC;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;draggable ui-widget-content&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable5&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-widget-header&quot;</span>&gt;</span>&#x6211;&#x88AB;&#x7EA6;&#x675F;&#x5728;&#x7236;&#x5143;&#x7D20;&#x5185;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<h2 id="t4&#x5149;&#x6807;&#x6837;&#x5F0F; (cursorAt)">&#x5149;&#x6807;&#x6837;&#x5F0F; (cursorAt) <a href="#t4&#x5149;&#x6807;&#x6837;&#x5F0F; (cursorAt)"> # </a></h2>
+<p>  &#x5F53;&#x62D6;&#x62FD;&#x5BF9;&#x8C61;&#x65F6;&#x5B9A;&#x4F4D;&#x5149;&#x6807;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5149;&#x6807;&#x662F;&#x51FA;&#x73B0;&#x5728;&#x88AB;&#x62D6;&#x62FD;&#x5BF9;&#x8C61;&#x4E2D;&#x95F4;&#xFF0C;&#x4F7F;&#x7528;cursorAt&#x9009;&#x9879;&#x6765;&#x6307;&#x5B9A;&#x76F8;&#x5BF9;&#x4E8E;draggable&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF08;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x76F8;&#x5BF9;&#x4E8E;top&#x3001;right&#x3001;bottom&#x3001;left&#x7684;&#x50CF;&#x7D20;&#x503C;&#xFF09;&#x3002;&#x901A;&#x8FC7;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x5E26;&#x6709;&#x6709;&#x6548;&#x7684;css&#x5149;&#x6807;&#x503C;&#x7684;cursor&#x9009;&#x9879;&#x6765;&#x81EA;&#x5B9A;&#x4E49;&#x5149;&#x6807;&#x5916;&#x89C2;&#xFF0C;&#x6709;&#x6548;&#x7684;css&#x5149;&#x6807;&#x503C;&#x5305;&#x62EC;&#xFF1A;default&#x3001;move&#x3001;pointer&#x3001;crosshair&#x7B49;</p>
+<p>&#xB7; main.js</p>
+<pre><code class="lang-javascript">$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  $( <span class="hljs-string">&quot;#draggable&quot;</span> ).draggable({ cursor: <span class="hljs-string">&quot;move&quot;</span>, cursorAt: { top: <span class="hljs-number">56</span>, left: <span class="hljs-number">56</span> } });
+  $( <span class="hljs-string">&quot;#draggable2&quot;</span> ).draggable({ cursor: <span class="hljs-string">&quot;crosshair&quot;</span>, cursorAt: { top: -<span class="hljs-number">5</span>, left: -<span class="hljs-number">5</span> } });
+  $( <span class="hljs-string">&quot;#draggable3&quot;</span> ).draggable({ cursorAt: { bottom: <span class="hljs-number">0</span> } });
+});
+</code></pre>
+<p>&#xB7; index.html</p>
+<pre><code class="lang-html">
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-widget-content&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>&#x53EA;&#x6709;&#x628A;&#x6211;&#x62D6;&#x62FD;&#x4E86; 20 &#x50CF;&#x7D20;&#x540E;&#xFF0C;&#x62D6;&#x62FD;&#x624D;&#x5F00;&#x59CB;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable2&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-widget-content&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>&#x4E0D;&#x7BA1; distance &#x662F;&#x591A;&#x5C11;&#xFF0C;&#x60A8;&#x90FD;&#x5FC5;&#x987B;&#x62D6;&#x62FD;&#x5E76;&#x7B49;&#x5F85; 1000ms &#x540E;&#x62D6;&#x62FD;&#x624D;&#x5F00;&#x59CB;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<h2 id="t5&#x62D6;&#x52A8;&#xFF08;Draggable&#xFF09; + &#x6392;&#x5E8F;&#xFF08;Sortable&#xFF09;">&#x62D6;&#x52A8;&#xFF08;Draggable&#xFF09; + &#x6392;&#x5E8F;&#xFF08;Sortable&#xFF09; <a href="#t5&#x62D6;&#x52A8;&#xFF08;Draggable&#xFF09; + &#x6392;&#x5E8F;&#xFF08;Sortable&#xFF09;"> # </a></h2>
+<p>Draggable &#x4E0E; Sortable &#x7684;&#x65E0;&#x7F1D;&#x4EA4;&#x4E92;&#x3002;</p>
+<p>&#xB7; main.js</p>
+<pre><code class="lang-javascript">
+$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  $(<span class="hljs-string">&apos;#sortable&apos;</span>).sortable({
+    revert : <span class="hljs-literal">true</span>
+  });
+  $(<span class="hljs-string">&apos;#draggable&apos;</span>).draggable({
+    connectToSortable:<span class="hljs-string">&apos;#sortable&apos;</span>,
+    help:<span class="hljs-string">&apos;clone&apos;</span>,
+    revert:<span class="hljs-string">&apos;invalid&apos;</span>
+  });
+  $(<span class="hljs-string">&apos;ul, li&apos;</span>).disableSelection();
+});
+</code></pre>
+<p>&#xB7; index.html</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;draggable&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-highlight&quot;</span>&gt;</span>&#x8BF7;&#x62D6;&#x62FD;&#x6211;<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;sortable&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span>Item 4<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;ui-state-default&quot;</span>&gt;</span>Item 5<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+
+        <div class="copyright">Powered by <a href="https://github.com/jaywcjlove/idoc" target="_blank">idoc</a>. Dependence <a href="https://nodejs.org">Node.js</a> run.</div>
+    </div>
+    
+</div>
+
+
+</body>
+</html>
