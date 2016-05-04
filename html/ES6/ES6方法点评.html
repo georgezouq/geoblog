@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>geoblog</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+</head>
+<body>
+<div class="nav">
+    <div class="logo">
+        
+            geoblog
+        
+    </div>
+<ul><li><a href="../../index.html">index</a></li><li><a href="#"><span></span>AngularJS</a><ul><li><a href="../../html/AngularJS/AngularJS 编码规范.html">AngularJS 编码规范</a></li><li><a href="../../html/AngularJS/Angular2 Quick Start.html">Angular2 Quick Start</a></li></ul></li><li><a href="#"><span></span>工具使用</a><ul><li><a href="../../html/工具使用/如何编写GitHub的ReadMe.html">如何编写GitHub的ReadMe</a></li><li><a href="../../html/工具使用/Gulp Getting Started.html">Gulp Getting Started</a></li><li><a href="../../html/工具使用/TypeScript.html">TypeScript</a></li></ul></li><li><a href="#"><span></span>CSS</a><ul><li><a href="../../html/CSS/Less与Sass.html">Less与Sass</a></li></ul></li><li><a href="#"><span></span>JQuery相关</a><ul><li><a href="../../html/JQuery相关/JQuery-Sortable排序.html">JQuery-Sortable排序</a></li><li><a href="../../html/JQuery相关/JqueryUI-Draggable(拖动).html">JqueryUI-Draggable(拖动)</a></li></ul></li><li><a href="#"><span></span>ES6</a><ul><li class="active"><a href="../../html/ES6/ES6方法点评.html">ES6方法点评</a></li></ul></li></ul></div>
+
+
+<div class="warpper">
+
+    <div class="page-toc">
+        <ul><li><a href="#t0ES6 部分方法点评">ES6 部分方法点评</a><ul><li><a href="#t1箭头函数(Arrow Functions)">箭头函数(Arrow Functions)</a></li><li><a href="#t2LET">LET</a></li><li><a href="#t3CONST">CONST</a></li><li><a href="#t4DESTRUCTURING">DESTRUCTURING</a></li></ul></li></ul>
+    </div>
+    
+    <div class="content markdown-body">
+        <h1 id="t0ES6 &#x90E8;&#x5206;&#x65B9;&#x6CD5;&#x70B9;&#x8BC4;">ES6 &#x90E8;&#x5206;&#x65B9;&#x6CD5;&#x70B9;&#x8BC4; <a href="#t0ES6 &#x90E8;&#x5206;&#x65B9;&#x6CD5;&#x70B9;&#x8BC4;"> # </a></h1>
+<h2 id="t1&#x7BAD;&#x5934;&#x51FD;&#x6570;(Arrow Functions)">&#x7BAD;&#x5934;&#x51FD;&#x6570;(Arrow Functions) <a href="#t1&#x7BAD;&#x5934;&#x51FD;&#x6570;(Arrow Functions)"> # </a></h2>
+<p>  &#x7BAD;&#x5934;&#x51FD;&#x6570;&#x65F6;ES6&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#x4E4B;&#x4E00;:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">//ES5</span>
+<span class="hljs-keyword">var</span> selected = allJobs.filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">job</span>)</span>{
+  <span class="hljs-keyword">return</span> job.isSelected();
+});
+
+<span class="hljs-comment">//ES6</span>
+<span class="hljs-keyword">var</span> selected = allJobs.filter(job =&gt; job.isSelected());
+</code></pre>
+<p>  &#x591A;&#x884C;&#x65B9;&#x6CD5;&#x4F53;&#x7684;&#x65B9;&#x5F0F;:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">//ES5</span>
+$(<span class="hljs-string">&apos;#confetti-btn&apos;</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>)</span>{
+  playTrumpet();
+  fireConfettiCannon();
+});
+
+<span class="hljs-comment">//ES6</span>
+$(<span class="hljs-string">&quot;#confetti-btn&quot;</span>).click(event =&gt; {
+  playTrumpet();
+  fireConfettiCannon();
+})
+</code></pre>
+<p>&#x8BED;&#x6CD5;&#x5927;&#x4F53;&#x662F;&#x8FD9;&#x6837;&#x7684;:</p>
+<pre><code>([&#x51FD;&#x6570;&#x7684;&#x5F62;&#x53C2;,&#x591A;&#x4E2A;&#x53C2;&#x6570;&#x5219;&#x4EE5;&#x9017;&#x53F7;&#x5206;&#x9694;]) =&gt; [&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7684;&#x503C;/&#x8868;&#x8FBE;&#x5F0F;]
+</code></pre><p>&#x6B64;&#x5916;&#xFF0C;&#x8FD8;&#x6709;&#x6700;&#x91CD;&#x8981;&#x7684;&#x4E00;&#x70B9;&#xFF0C;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x5E76;&#x6CA1;&#x6709;&#x81EA;&#x5DF1;&#x7684;<code>this</code>&#x503C;&#xFF0C;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x5185;&#x7684;<code>this</code>&#x503C;&#x7EE7;&#x627F;&#x81EA;&#x5916;&#x56F4;&#x4F5C;&#x7528;&#x57DF;&#x3002;</p>
+<pre><code class="lang-javascript">  {
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">piece</span>)</span>{},
+    ...
+    addAll:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addAll</span>(<span class="hljs-params">prieces</span>)</span>{
+      <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+      _.each(pieces,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">price</span>)</span>{
+        self.add(piece);
+      });
+    }
+
+  }
+
+  <span class="hljs-comment">//ES6</span>
+  {
+    add:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">piece</span>)</span>{},
+    ...
+    addAll:<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addAll</span>(<span class="hljs-params">pieces</span>)</span>{
+      _.each(pieces,piece =&gt; <span class="hljs-keyword">this</span>.add(price));
+    },
+    ...
+  }
+</code></pre>
+<h2 id="t2LET">LET <a href="#t2LET"> # </a></h2>
+<p>ES6 <code>let</code>&#x5173;&#x952E;&#x5B57;&#x7684;&#x51FA;&#x73B0;&#x610F;&#x5473;&#x7740;JavaScript&#x8FCE;&#x6765;&#x4E86;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;({},for,if),&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x7684;&#x9632;&#x6B62;&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#x6C61;&#x67D3;&#x5230;&#x5916;&#x5C42;&#x53D8;&#x91CF;:</p>
+<pre><code class="lang-javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">let</span> n = <span class="hljs-number">5</span>;
+    <span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>){
+      <span class="hljs-keyword">let</span> n = <span class="hljs-number">10</span>;
+    }
+    <span class="hljs-built_in">console</span>.log(n); <span class="hljs-comment">//5</span>
+  }
+</code></pre>
+<h2 id="t3CONST">CONST <a href="#t3CONST"> # </a></h2>
+<p>  <code>const</code>&#x7528;&#x6765;&#x5B9A;&#x4E49;&#x5E38;&#x91CF;&#xFF0C;&#x4E00;&#x65E6;&#x5B9A;&#x4E49;&#x4E86;&#x5E38;&#x91CF;&#x5C31;&#x4E0D;&#x53EF;&#x4FEE;&#x6539;&#x3002;</p>
+<h2 id="t4DESTRUCTURING">DESTRUCTURING <a href="#t4DESTRUCTURING"> # </a></h2>
+<p>  destructuring &#x89E3;&#x6784;&#xFF0C;ES6&#x5141;&#x8BB8;&#x6309;&#x7167;&#x4E00;&#x5B9A;&#x7684;&#x6A21;&#x5F0F;&#xFF0C;&#x4ECE;&#x6570;&#x7EC4;&#x548C;&#x5BF9;&#x8C61;&#x4E2D;&#x63D0;&#x53D6;&#x503C;&#x3002;&#x5BF9;&#x53D8;&#x91CF;&#x8FDB;&#x884C;&#x8D4B;&#x503C;&#xFF0C;&#x8FD9;&#x6210;&#x4E3A;&#x89E3;&#x6784;(Destructuring):</p>
+<pre><code class="lang-javascript"><span class="hljs-pi">&apos;use strict&apos;</span>;
+
+<span class="hljs-comment">//&#x5BF9;&#x6570;&#x7EC4;&#x7684;&#x89E3;&#x6784;&#x8D4B;&#x503C;</span>
+<span class="hljs-keyword">let</span> [foo,[[bar],baz]] = [<span class="hljs-number">1</span>,[[<span class="hljs-number">2</span>],<span class="hljs-number">3</span>]];
+<span class="hljs-built_in">console</span>.log(foo); <span class="hljs-comment">//1</span>
+<span class="hljs-built_in">console</span>.log(bar); <span class="hljs-comment">//2</span>
+<span class="hljs-built_in">console</span>.log(baz); <span class="hljs-comment">//3</span>
+
+<span class="hljs-comment">//&#x5BF9;&#x8C61;&#x7684;&#x89E3;&#x6784;&#x8D4B;&#x503C;</span>
+<span class="hljs-keyword">var</span> {foo,bar} = {foo:<span class="hljs-string">&quot;aaa&quot;</span>,bar:<span class="hljs-string">&quot;bbb&quot;</span>};
+<span class="hljs-built_in">console</span>.log(foo); <span class="hljs-comment">//&quot;aaa&quot;</span>
+<span class="hljs-built_in">console</span>.log(bar); <span class="hljs-comment">//&quot;bbb&quot;</span>
+
+<span class="hljs-comment">//&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x89E3;&#x6784;&#x8D4B;&#x503C;</span>
+<span class="hljs-keyword">const</span> [a,b,v,d,e] = <span class="hljs-string">&quot;hello&quot;</span>;
+<span class="hljs-built_in">console</span>.log(a+b+c+d+e); <span class="hljs-comment">//&apos;hello&apos;</span>
+</code></pre>
+<p>&#x8DDF;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x4E00;&#x6837;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x5168;&#x65B0;&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x5B83;&#x7684;&#x7528;&#x5904;&#x6709;&#x5F88;&#x5BF9;&#xFF0C;&#x4F8B;&#x5982;&#x5728;&#x6211;&#x4EEC;&#x5C01;&#x88C5;&#x53C2;&#x6570;&#x7684;&#x65F6;&#x5019;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// ES5 &#x4E8C;&#x903C;&#x9752;&#x5E74;&#x5199;&#x6CD5;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">study</span>(<span class="hljs-params">id, name, sex, grade, nickname, age, address</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(id);
+    <span class="hljs-built_in">console</span>.log(name);
+    <span class="hljs-built_in">console</span>.log(sex);
+    <span class="hljs-built_in">console</span>.log(grade);
+    <span class="hljs-built_in">console</span>.log(nickname);
+    <span class="hljs-built_in">console</span>.log(age);
+    <span class="hljs-built_in">console</span>.log(address);
+}
+<span class="hljs-comment">// ES5 &#x6B63;&#x5E38;&#x9752;&#x5E74;&#x5199;&#x6CD5;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">study</span>(<span class="hljs-params">params</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(params.id);
+    <span class="hljs-built_in">console</span>.log(params.name);
+    <span class="hljs-built_in">console</span>.log(params.sex);
+    <span class="hljs-built_in">console</span>.log(params.grade);
+    <span class="hljs-built_in">console</span>.log(params.nickname);
+    <span class="hljs-built_in">console</span>.log(params.age);
+    <span class="hljs-built_in">console</span>.log(params.address);
+}
+</code></pre>
+<pre><code class="lang-javascript"><span class="hljs-comment">//ES6</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">study</span>(<span class="hljs-params">{id, name, sex, grade, nickname, age, address}</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(id);
+    <span class="hljs-built_in">console</span>.log(name);
+    <span class="hljs-built_in">console</span>.log(sex);
+    <span class="hljs-built_in">console</span>.log(grade);
+    <span class="hljs-built_in">console</span>.log(nickname);
+    <span class="hljs-built_in">console</span>.log(age);
+    <span class="hljs-built_in">console</span>.log(address);    
+}
+study({
+    id: <span class="hljs-number">1</span>,
+    name: <span class="hljs-string">&apos;&#x6797;&#x6709;&#x5FB7;&apos;</span>,
+    sex: <span class="hljs-string">&apos;&#x7537;&apos;</span>,
+    grade: <span class="hljs-string">&apos;&#x4E00;&#x5E74;&#x7EA7;&apos;</span>,
+    nickname: <span class="hljs-string">&apos;&#x5E03;&#x83B1;&#x5FB7;&apos;</span>,
+    age: <span class="hljs-number">12</span>,
+    address: <span class="hljs-string">&apos;&#x6728;&#x9A6C;&#x53F7;&apos;</span>
+});
+</code></pre>
+
+        <div class="copyright">Powered by <a href="https://github.com/jaywcjlove/idoc" target="_blank">idoc</a>. Dependence <a href="https://nodejs.org">Node.js</a> run.</div>
+    </div>
+    
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>geoblog</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+</head>
+<body>
+<div class="nav">
+    <div class="logo">
+        
+            geoblog
+        
+    </div>
+<ul><li><a href="../../index.html">index</a></li><li><a href="#"><span></span>AngularJS</a><ul><li><a href="../../html/AngularJS/AngularJS 编码规范.html">AngularJS 编码规范</a></li><li><a href="../../html/AngularJS/Angular2 Quick Start.html">Angular2 Quick Start</a></li></ul></li><li><a href="#"><span></span>工具使用</a><ul><li><a href="../../html/工具使用/如何编写GitHub的ReadMe.html">如何编写GitHub的ReadMe</a></li><li><a href="../../html/工具使用/Gulp Getting Started.html">Gulp Getting Started</a></li><li class="active"><a href="../../html/工具使用/TypeScript.html">TypeScript</a></li></ul></li><li><a href="#"><span></span>CSS</a><ul><li><a href="../../html/CSS/Less与Sass.html">Less与Sass</a></li></ul></li><li><a href="#"><span></span>JQuery相关</a><ul><li><a href="../../html/JQuery相关/JQuery-Sortable排序.html">JQuery-Sortable排序</a></li><li><a href="../../html/JQuery相关/JqueryUI-Draggable(拖动).html">JqueryUI-Draggable(拖动)</a></li></ul></li><li><a href="#"><span></span>ES6</a><ul><li><a href="../../html/ES6/ES6方法点评.html">ES6方法点评</a></li></ul></li></ul></div>
+
+
+<div class="warpper">
+
+    <div class="page-toc">
+        <ul><li><a href="#t0什么是TypeScript?">什么是TypeScript?</a><ul><li><a href="#t1typescript并没有太多对于类型的限制：">typescript并没有太多对于类型的限制：</a></li><li><a href="#t2基本类型">基本类型</a></li><li><a href="#t3类">类</a><ul><li><a href="#t4属性声明">属性声明</a></li><li><a href="#t5构造函数属性声明">构造函数属性声明</a></li><li><a href="#t6支持public ,private ,static 描述">支持public ,private ,static 描述</a></li><li><a href="#t7函数">函数</a><ul><li><a href="#t8- 可选/默参数">- 可选/默参数</a></li><li><a href="#t9- 剩余参数">- 剩余参数</a></li><li><a href="#t10- 箭头函数">- 箭头函数</a></li><li><a href="#t11- 重载">- 重载</a></li><li><a href="#t12- 装饰器(decorator)">- 装饰器(decorator)</a></li></ul></li></ul></li><li><a href="#t13模块">模块</a><ul><li><a href="#t14内部模块">内部模块</a></li></ul></li></ul></li></ul>
+    </div>
+    
+    <div class="content markdown-body">
+        <h1 id="t0&#x4EC0;&#x4E48;&#x662F;TypeScript?">&#x4EC0;&#x4E48;&#x662F;TypeScript? <a href="#t0&#x4EC0;&#x4E48;&#x662F;TypeScript?"> # </a></h1>
+<p>Javascript &#x662F;&#x4E00;&#x79CD;&#x5F31;&#x7C7B;&#x578B;&#x8BED;&#x8A00;&#xFF0C;&#x5728;&#x5F00;&#x53D1;&#x4E00;&#x4E9B;&#x5C0F;&#x9879;&#x76EE;&#xFF0C;UI&#x4EA4;&#x4E92;&#x7684;&#x65F6;&#x5019;&#x5F88;&#x7075;&#x6D3B;&#x65B9;&#x4FBF;&#x3002;&#x4F46;&#x662F;&#x5F53;&#x9879;&#x76EE;&#x53D8;&#x5F97;&#x5E9E;&#x5927;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x663E;&#x9732;&#x51FA;&#x5F88;&#x660E;&#x663E;&#x7684;&#x5F0A;&#x7AEF;.</p>
+<p>TypeScript&#x628A;&#x7C7B;&#x578B;&#x5E26;&#x5165;Javascript&#x7684;&#x4E16;&#x754C;&#xFF0C;&#x4ED6;&#x662F;Javascript&#x7684;&#x8D85;&#x96C6;&#xFF0C;&#x5373;&#x6240;&#x6709;&#x5408;&#x6CD5;&#x7684;JS&#x90FD;&#x662F;Typescript&#x3002;&#x4F46;&#x662F;&#x4ED6;&#x53EF;&#x4EE5;&#x6709;&#x7C7B;&#x578B;&#xFF0C;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;Typescript&#x88AB;tsc&#x7F16;&#x8BD1;&#x5668;&#x7FFB;&#x8BD1;&#x6210;&#x53EF;&#x8BFB;&#x6027;&#x5F88;&#x9AD8;&#x7684;Javascript&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x6267;&#x884C;&#x3002;</p>
+<h3 id="t1typescript&#x5E76;&#x6CA1;&#x6709;&#x592A;&#x591A;&#x5BF9;&#x4E8E;&#x7C7B;&#x578B;&#x7684;&#x9650;&#x5236;&#xFF1A;">typescript&#x5E76;&#x6CA1;&#x6709;&#x592A;&#x591A;&#x5BF9;&#x4E8E;&#x7C7B;&#x578B;&#x7684;&#x9650;&#x5236;&#xFF1A; <a href="#t1typescript&#x5E76;&#x6CA1;&#x6709;&#x592A;&#x591A;&#x5BF9;&#x4E8E;&#x7C7B;&#x578B;&#x7684;&#x9650;&#x5236;&#xFF1A;"> # </a></h3>
+<p>  1.&#x5B83;&#x652F;&#x6301;&#x7C7B;&#x578B;&#x81EA;&#x52A8;&#x63A8;&#x65AD;&#xFF0C;&#x4E00;&#x4E9B;&#x5F88;&#x660E;&#x663E;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x80FD;&#x591F;&#x667A;&#x80FD;&#x63A8;&#x65AD;&#x51FA;&#x6765; <code>var x = 1</code>;
+  2.&#x597D;&#x5728;&#x5B83;&#x7684;&#x7C7B;&#x578B;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5168;&#x643A;&#x7A0B;any&#x7C7B;&#x578B;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x5BF9;&#x8BE5;&#x53D8;&#x91CF;&#x653E;&#x5F03;&#x7C7B;&#x578B;&#x68C0;&#x67E5;&#xFF0C;&#x53CA;&#x65F6;&#x7C7B;&#x578B;&#x6BD4;&#x914D;&#x5931;&#x8D25;&#xFF0C;&#x4F9D;&#x7136;&#x4F1A;&#x751F;&#x6210;Javascript&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x9010;&#x6E10;&#x628A;JS&#x4EE3;&#x7801;&#x8FC1;&#x79FB;&#x5230;Typescript&#x4E0A;&#x3002;</p>
+<h2 id="t2&#x57FA;&#x672C;&#x7C7B;&#x578B;">&#x57FA;&#x672C;&#x7C7B;&#x578B; <a href="#t2&#x57FA;&#x672C;&#x7C7B;&#x578B;"> # </a></h2>
+<p>TypeScript &#x63D0;&#x4F9B;&#x4E86;<code>boolean</code>,<code>number</code>,<code>string</code>,<code>array</code>,<code>enum</code>,<code>any</code>,<code>void</code>&#x51E0;&#x79CD;&#x57FA;&#x672C;&#x7C7B;&#x578B;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> flag:boolean = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">var</span> s:string = <span class="hljs-string">&apos;hello&apos;</span>;
+<span class="hljs-keyword">var</span> n:number = <span class="hljs-number">123</span>;
+
+enum Color {Red = <span class="hljs-number">1</span>,Green,Blue};
+<span class="hljs-keyword">var</span> color:Color = Color.Green;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">msg:string</span>):<span class="hljs-title">void</span></span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${new Date().toUTCString()}</span> <span class="hljs-subst">${msg}</span>`</span>);
+}
+</code></pre>
+<h2 id="t3&#x7C7B;">&#x7C7B; <a href="#t3&#x7C7B;"> # </a></h2>
+<p>&#x7C7B;&#x7684;&#x8BED;&#x6CD5;&#x548C;ES6&#x7684;Class&#x7C7B;&#x4F3C;&#xFF0C;&#x6709;constructor&#xFF0C;&#x53EF;&#x4EE5;&#x7EE7;&#x627F;&#xFF0C;&#x8FD9;&#x91CC;&#x8BF4;&#x51E0;&#x70B9;&#x4E0D;&#x540C;:</p>
+<h3 id="t4&#x5C5E;&#x6027;&#x58F0;&#x660E;">&#x5C5E;&#x6027;&#x58F0;&#x660E; <a href="#t4&#x5C5E;&#x6027;&#x58F0;&#x660E;"> # </a></h3>
+<p>ES6&#x7684;class&#x5C5E;&#x6027;&#x662F;&#x76F4;&#x63A5;&#x8D4B;&#x503C;&#x7ED9;<code>this.varName</code>&#x58F0;&#x660E;&#x7684;&#xFF0C;tyoescript&#x91CC;&#x9762;&#x9700;&#x8981;&#x663E;&#x793A;&#x58F0;&#x660E;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span></span>{
+  x:number;
+  y:number;
+}
+</code></pre>
+<h3 id="t5&#x6784;&#x9020;&#x51FD;&#x6570;&#x5C5E;&#x6027;&#x58F0;&#x660E;">&#x6784;&#x9020;&#x51FD;&#x6570;&#x5C5E;&#x6027;&#x58F0;&#x660E; <a href="#t5&#x6784;&#x9020;&#x51FD;&#x6570;&#x5C5E;&#x6027;&#x58F0;&#x660E;"> # </a></h3>
+<p>&#x5C5E;&#x6027;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x6DFB;&#x52A0;<code>public</code>,<code>private</code>&#x63CF;&#x8FF0;&#x58F0;&#x660E;</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span></span>{
+  constructor(public x:number,public y:number){}
+}
+</code></pre>
+<h3 id="t6&#x652F;&#x6301;public ,private ,static &#x63CF;&#x8FF0;">&#x652F;&#x6301;public ,private ,static &#x63CF;&#x8FF0; <a href="#t6&#x652F;&#x6301;public ,private ,static &#x63CF;&#x8FF0;"> # </a></h3>
+<p>ES6&#x7684;static&#x53EA;&#x652F;&#x6301;&#x5728;&#x51FD;&#x6570;&#x4E0A;&#x58F0;&#x660E;&#xFF0C;&#x800C;typescript&#x652F;&#x6301;&#x65B9;&#x6CD5;&#x548C;&#x5C5E;&#x6027;&#x3002;</p>
+<pre><code class="lang-typescript">  <span class="hljs-keyword">class</span> Popup{
+    <span class="hljs-keyword">static</span> inst:Popup;
+
+    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>()</span>{
+      <span class="hljs-keyword">if</span>(!Popup.inst){
+        Popup.inst = <span class="hljs-keyword">this</span>;
+      }
+    }
+  }
+
+  Popup.getInstance();
+</code></pre>
+<h3 id="t7&#x51FD;&#x6570;">&#x51FD;&#x6570; <a href="#t7&#x51FD;&#x6570;"> # </a></h3>
+<h4 id="t8- &#x53EF;&#x9009;/&#x9ED8;&#x53C2;&#x6570;">- &#x53EF;&#x9009;/&#x9ED8;&#x53C2;&#x6570; <a href="#t8- &#x53EF;&#x9009;/&#x9ED8;&#x53C2;&#x6570;"> # </a></h4>
+<pre><code class="lang-typescript">
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reset</span>(<span class="hljs-params">hard?:<span class="hljs-built_in">boolean</span></span>)</span>{
+    <span class="hljs-keyword">if</span>(hard){
+      resetDB();
+    }
+    resetUI();
+  }
+  reset();
+  reset(<span class="hljs-literal">true</span>);
+</code></pre>
+<h4 id="t9- &#x5269;&#x4F59;&#x53C2;&#x6570;">- &#x5269;&#x4F59;&#x53C2;&#x6570; <a href="#t9- &#x5269;&#x4F59;&#x53C2;&#x6570;"> # </a></h4>
+<p>  &#x53EF;&#x53D8;&#x6570;&#x76EE;&#x7684;&#x53C2;&#x6570;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5269;&#x4F59;&#x53C2;&#x6570;&#x7684;&#x5199;&#x6CD5;&#x3002;&#x83B7;&#x5F97;&#x7684;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x3002;</p>
+<pre><code class="lang-typescript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">max</span>(<span class="hljs-params">...nums:<span class="hljs-built_in">number</span>[]</span>)</span>{
+    ...
+  }
+</code></pre>
+<h4 id="t10- &#x7BAD;&#x5934;&#x51FD;&#x6570;">- &#x7BAD;&#x5934;&#x51FD;&#x6570; <a href="#t10- &#x7BAD;&#x5934;&#x51FD;&#x6570;"> # </a></h4>
+<p>  &#x8FD9;&#x4E00;&#x70B9;&#x4E0E;ES6&#x4E00;&#x81F4;&#xFF0C;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x4FDD;&#x6301;&#x548C;&#x5916;&#x90E8;&#x4E00;&#x6837;&#x7684;this&#x4E0A;&#x4E0B;&#x6587;</p>
+<pre><code class="lang-typescript">
+<span class="hljs-keyword">var</span> Scheduler = {
+  queue:[],
+  schedule(t:Task){
+    setTimeout(() =&gt; {
+      <span class="hljs-keyword">this</span>.queue.push(t);
+    },<span class="hljs-number">0</span>);
+  }
+};
+
+Scheduler.schedule(<span class="hljs-keyword">new</span> Task());
+</code></pre>
+<h4 id="t11- &#x91CD;&#x8F7D;">- &#x91CD;&#x8F7D; <a href="#t11- &#x91CD;&#x8F7D;"> # </a></h4>
+<p>JS&#x51FD;&#x6570;&#x652F;&#x6301;&#x4E0D;&#x540C;&#x7684;&#x53C2;&#x6570;&#x8FDB;&#x884C;&#x91CD;&#x8F7D;&#xFF0C;&#x4F8B;&#x5982;jquery&#x7684;css&#x51FD;&#x6570;</p>
+<pre><code class="lang-typescript">css({
+  width:<span class="hljs-string">&apos;100px&apos;</span>
+  })
+  css(<span class="hljs-string">&apos;width&apos;</span>,<span class="hljs-string">&apos;100px&apos;</span>)
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x8C03;&#x7528;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4E3A;&#x8BE5;&#x51FD;&#x6570;&#x58F0;&#x660E;&#x91CD;&#x8F7D;:</p>
+<pre><code class="lang-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">css</span>(<span class="hljs-params">config:object</span>)</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">css</span>(<span class="hljs-params">config:<span class="hljs-built_in">string</span>,value:<span class="hljs-built_in">string</span></span>)</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">css</span>(<span class="hljs-params">config:<span class="hljs-built_in">any</span>,value?:<span class="hljs-built_in">any</span></span>)</span>{
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> config == <span class="hljs-string">&apos;string&apos;</span>){
+    ...
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> config == <span class="hljs-string">&apos;object&apos;</span>){
+    ...
+  }
+}
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x6709;&#x4E24;&#x4E2A;&#x91CD;&#x8F7D;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x5224;&#x65AD;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x662F;&#x5426;&#x7B26;&#x5408;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x3002;</p>
+<h4 id="t12- &#x88C5;&#x9970;&#x5668;(decorator)">- &#x88C5;&#x9970;&#x5668;(decorator) <a href="#t12- &#x88C5;&#x9970;&#x5668;(decorator)"> # </a></h4>
+<p>Typescript&#x7684;&#x88C5;&#x9970;&#x5668;&#x548C;ES6&#x91CC;&#x9762;&#x4E00;&#x81F4;&#xFF0C;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x5DF2;&#x6709;&#x7684;&#x7C7B;&#x6216;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x4ED6;&#x4EEC;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x63D0;&#x4F9B;&#x4E00;&#x5C42;&#x5C01;&#x88C5;&#x3002;Angular2&#x91CC;&#x9762;&#x5927;&#x91CF;&#x4F7F;&#x7528;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x4E3A;&#x7EC4;&#x4EF6;&#x6CE8;&#x518C;&#x5143;&#x6570;&#x636E;</p>
+<p>1.&#x7C7B;&#x7684;&#x88C5;&#x9970;&#x5668;</p>
+<pre><code class="lang-typescript">@decorator
+<span class="hljs-keyword">class</span> A{}
+</code></pre>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7B49;&#x540C;&#x4E8E;&#xFF1A;</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">class</span> A {}
+A = decorator(A) || A;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">decorator</span>(<span class="hljs-params">klass</span>)</span>{
+
+  klass.meta = <span class="hljs-string">&apos;my awesome class&apos;</span>;
+}
+</code></pre>
+<p>Angular &#x91CC;&#x9762;&#x7684;&#x88C5;&#x9970;&#x5668;&#x53EF;&#x4EE5;&#x4F20;&#x5165;meta&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-typescript">@Component({
+  selector:<span class="hljs-string">&apos;my-app&apos;</span>
+  })
+  <span class="hljs-keyword">class</span> MyApp{
+
+  }
+</code></pre>
+<p>Component &#x5176;&#x5B9E;&#x662F;angular&#x5E93;&#x4E2D;&#x5B9E;&#x73B0;&#x7684;&#x4E00;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#x5DE5;&#x5382;&#xFF0C;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;meta&#x4FE1;&#x606F;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x88C5;&#x9970;&#x5668;,&#x7C7B;&#x4F3C;&#x5982;&#x4E0B;&#x5B9E;&#x73B0;:</p>
+<pre><code class="lang-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">meta</span>)</span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">klass</span>)</span>{
+    ...
+  }
+}
+</code></pre>
+<p>2.&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x7684;&#x88C5;&#x9970;&#x5668;</p>
+<p>  &#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x88C5;&#x9970;&#x5668;&#x662F;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x7684;&#x88C5;&#x9970;&#x5668;</p>
+<pre><code class="lang-typescript">
+    <span class="hljs-keyword">class</span> Persion{
+      @readonly
+      name(){
+        <span class="hljs-keyword">return</span> `${<span class="hljs-keyword">this</span>.first} ${<span class="hljs-keyword">this</span>.last}`
+      }
+    }
+</code></pre>
+<p>  &#x4EE5;&#x4E0A;readonly&#x65B9;&#x6CD5;&#x88AB;&#x5982;&#x4E0B;&#x65B9;&#x5F0F;&#x8C03;&#x7528;</p>
+<pre><code class="lang-typescript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readonly</span>(<span class="hljs-params">target,name,descriptor</span>)</span>{
+      descriptor.writable = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">return</span> descriptor;
+    }
+
+    readonly(Person.prototype,<span class="hljs-string">&apos;name&apos;</span>,descriptor);
+
+    <span class="hljs-comment">// descriptor&#x5BF9;&#x8C61;&#x7684;&#x521D;&#x59CB;&#x503C;&#x5982;&#x4E0B;</span>
+    <span class="hljs-comment">// {</span>
+    <span class="hljs-comment">//   value: oneFunction,</span>
+    <span class="hljs-comment">//   enumerable: false,</span>
+    <span class="hljs-comment">//   configurable: true,</span>
+    <span class="hljs-comment">//   writable: true</span>
+    <span class="hljs-comment">// };</span>
+</code></pre>
+<p>3.&#x51FD;&#x6570;&#x7684;&#x88C5;&#x9970;&#x5668;&#x5462;&#xFF1F;&#x53EF;&#x60DC;&#x7684;&#x662F;&#x7531;&#x4E8E;&#x51FD;&#x6570;&#x5B58;&#x5728;&#x63D0;&#x5347;&#xFF0C;&#x6CA1;&#x6709;&#x51FD;&#x6570;&#x7684;&#x88C5;&#x9970;&#x5668;&#x3001;</p>
+<h2 id="t13&#x6A21;&#x5757;">&#x6A21;&#x5757; <a href="#t13&#x6A21;&#x5757;"> # </a></h2>
+<p>Typescript &#x6A21;&#x5757;&#x5305;&#x62EC;&#x5185;&#x90E8;&#x6A21;&#x5757;&#x548C;&#x5916;&#x90E8;&#x6A21;&#x5757;&#x4E24;&#x79CD;</p>
+<h3 id="t14&#x5185;&#x90E8;&#x6A21;&#x5757;">&#x5185;&#x90E8;&#x6A21;&#x5757; <a href="#t14&#x5185;&#x90E8;&#x6A21;&#x5757;"> # </a></h3>
+<p>&#x5185;&#x90E8;&#x6A21;&#x5757;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5C01;&#x95ED;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x5171;&#x4E00;&#x4E2A;js&#x6587;&#x4EF6;&#x5185; &#x4EE3;&#x7801;&#x4F7F;&#x7528;(&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;///&#x5F15;&#x5165;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x90E8;&#x6A21;&#x5757;)</p>
+<pre><code class="lang-typescript">  <span class="hljs-module"><span class="hljs-keyword">module</span> com.gf.Utils</span>{
+    <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">msg:<span class="hljs-built_in">string</span></span>)</span>{
+      alert(msg);
+    }
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> name = <span class="hljs-string">&apos;some random tools&apos;</span>;
+
+  }
+
+  <span class="hljs-keyword">import</span> Utils = com.osamu.Utils; <span class="hljs-comment">//alias</span>
+
+  Utils.foo(<span class="hljs-string">&apos;hi&apos;</span>)
+  Utils.name = <span class="hljs-string">&apos;Jack&apos;</span>;
+</code></pre>
+
+        <div class="copyright">Powered by <a href="https://github.com/jaywcjlove/idoc" target="_blank">idoc</a>. Dependence <a href="https://nodejs.org">Node.js</a> run.</div>
+    </div>
+    
+</div>
+
+
+</body>
+</html>

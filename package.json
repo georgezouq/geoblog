@@ -23,12 +23,15 @@
             "index.md",
             {
                 "AngularJS": [
-                    "AngularJS 编码规范.md"
+                    "AngularJS 编码规范.md",
+                    "Angular2 Quick Start.md"
                 ]
             },
             {
                 "工具使用": [
-                    "如何编写GitHub的ReadMe.md"
+                    "如何编写GitHub的ReadMe.md",
+                    "Gulp Getting Started.md",
+                    "TypeScript.md"
                 ]
             },
             {
@@ -40,6 +43,11 @@
                 "JQuery相关": [
                     "JQuery-Sortable排序.md",
                     "JqueryUI-Draggable(拖动).md"
+                ]
+            },
+            {
+                "ES6": [
+                    "ES6方法点评.md"
                 ]
             }
         ]
