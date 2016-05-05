@@ -19,11 +19,64 @@
 <div class="warpper">
 
     <div class="page-toc">
-        <ul><li><a href="#t0Angular 2 Quick Start">Angular 2 Quick Start</a></li></ul>
+        <ul><li><a href="#t0Angular 2 Quick Start">Angular 2 Quick Start</a><ul><li><a href="#t1ES6 工具链">ES6 工具链</a></li><li><a href="#t2初识 Angular2">初识 Angular2</a></li><li><a href="#t3注解/Annotation">注解/Annotation</a></li></ul></li></ul>
     </div>
     
     <div class="content markdown-body">
         <h1 id="t0Angular 2 Quick Start">Angular 2 Quick Start <a href="#t0Angular 2 Quick Start"> # </a></h1>
+<h2 id="t1ES6 &#x5DE5;&#x5177;&#x94FE;">ES6 &#x5DE5;&#x5177;&#x94FE; <a href="#t1ES6 &#x5DE5;&#x5177;&#x94FE;"> # </a></h2>
+<p>Angular2&#x662F;&#x9762;&#x5411;&#x672A;&#x6765;&#x7684;&#x79D1;&#x6280;&#xFF0C;&#x8981;&#x6C42;&#x6D4F;&#x89C8;&#x5668;&#x652F;&#x6301;ES6+&#xFF0C;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x8981;&#x5C1D;&#x8BD5;&#x7684;&#x8BDD;&#xFF0C;&#x9700;&#x8981;&#x52A0;&#x4E00;&#x4E9B;<code>&#x57AB;&#x7247;</code>&#x6765;&#x62B9;&#x5E73;&#x5F53;&#x524D;&#x6D4F;&#x89C8;&#x5668;&#x4E0E;ES6&#x7684;&#x5DEE;&#x5F02;:</p>
+<p>  &#xB7; angular2 polyfills - &#x4E3A;ES5&#x6D4F;&#x89C8;&#x5668;&#x63D0;&#x4F9B;ES6&#x7279;&#x6027;&#x652F;&#x6301;&#xFF0C;&#x6BD4;&#x5982;promise&#x7B49;&#x3002;
+  &#xB7; systemjs - &#x901A;&#x7528;&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x652F;&#x6301;AMD&#x3001;CommonJS&#x3001;ES6&#x7B49;&#x5404;&#x79CD;&#x683C;&#x5F0F;&#x7684;JS&#x6A21;&#x5757;&#x52A0;&#x8F7D;
+  &#xB7; typescript - TypeScript&#x8F6C;&#x5316;&#x5668;&#xFF0C;&#x5C06;TypeScript&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x4E3A;&#x5F53;&#x524D;&#x6D4F;&#x89C8;&#x5668;&#x652F;&#x6301;&#x7684;ES5&#x4EE3;&#x7801;&#xFF0C;&#x5728;&#x540E;&#x9762;&#xFF0C;systemjs&#x88AB;&#x914D;&#x7F6E;&#x4E3A;&#x53EA;&#x7528;TypeScript&#x8F6C;&#x7801;&#x5668;
+  &#xB7; reactive exetension - Javascript&#x7248;&#x672C;&#x7684;<code>&#x53CD;&#x5E94;&#x5F0F;&#x7F16;&#x7A0B;/Reactive Programming</code>&#x5B9E;&#x73B0;&#x5E93;&#xFF0C;&#x88AB;&#x6253;&#x5305;&#x4E3A;systemjs&#x7684;&#x5305;&#x683C;&#x5F0F;&#x4EE5;&#x4FBF;systemjs&#x52A8;&#x6001;&#x52A0;&#x8F7D;
+  &#xB7; angular2 - Angular2&#x6846;&#x67B6;&#xFF0C;&#x88AB;&#x6253;&#x5305;&#x4E3A;systemjs&#x7684;&#x5305;&#x683C;&#x5F0F;&#xFF0C;&#x4EE5;&#x4FBF;systemjs&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x6A21;&#x5757;
+&#x5904;&#x4E8E;&#x65B9;&#x4FBF;&#x4EE3;&#x7801;&#x4E66;&#x5199;&#x7684;&#x8003;&#x8651;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x8FD9;&#x4E9B;&#x57FA;&#x672C;&#x4F9D;&#x8D56;&#x6253;&#x5305;&#x5230;&#x4E00;&#x4E2A;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x4E2D;</p>
+<pre><code>angular2.beta.stack.min.js
+</code></pre><h2 id="t2&#x521D;&#x8BC6; Angular2">&#x521D;&#x8BC6; Angular2 <a href="#t2&#x521D;&#x8BC6; Angular2"> # </a></h2>
+<p>&#x5199;&#x4E00;&#x4E2A;Angular2&#x7684;Hello World&#x5E94;&#x7528;&#x76F8;&#x5F53;&#x7B80;&#x5355;&#xFF0C;&#x5206;&#x4E3A;&#x4E09;&#x6B65;:</p>
+<p>1.&#x5F15;&#x5165;Angular2&#x9884;&#x5B9A;&#x4E49;&#x7C7B;&#x578B;</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {Component} from <span class="hljs-string">&quot;angular2/core&quot;</span>;
+<span class="hljs-keyword">import</span> {bootstrap} from <span class="hljs-string">&quot;angular2/platform/browser&quot;</span>;
+</code></pre>
+<p><code>import</code> &#x662F;ES6&#x7684;&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x7528;&#x6765;&#x4ECE;&#x6A21;&#x5757;&#x4E2D;&#x5F15;&#x5165;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;&#x3002;&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x4ECE;angular2&#x6A21;&#x5757;&#x5E93;&#x4E2D;&#x5F15;&#x5165;&#x4E86;&#x4E24;&#x4E2A;&#x7C7B;&#x578B;:Component&#x7C7B;&#x548C;bootstrap&#x51FD;&#x6570;</p>
+<p>2.&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Angular2&#x7EC4;&#x4EF6;</p>
+<p>&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Angular2&#x7EC4;&#x4EF6;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x7ED9;&#x8FD9;&#x4E2A;&#x7C7B;&#x6DFB;&#x52A0;<code>&#x6CE8;&#x89E3;</code>&#xFF1A;</p>
+<pre><code class="lang-typescript">@Component({
+    selector:<span class="hljs-string">&quot;ez-app&quot;</span>,
+    template:<span class="hljs-string">&quot;&lt;h1&gt;Hello,Angular2&lt;/h1&gt;&quot;</span>
+  })
+
+<span class="hljs-keyword">class</span> EzApp{}
+</code></pre>
+<p><code>class</code> &#x4E5F;&#x662F;ES6&#x7684;&#x5173;&#x952E;&#x8BCD;&#xFF0C;&#x7528;&#x6765;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7C7B;&#x3002;<code>@Component</code>&#x662F;&#x7ED9;&#x7C7B;<code>EzApp</code>&#x9644;&#x52A0;&#x7684;&#x5143;&#x4FE1;&#x606F;&#xFF0C;&#x88AB;&#x79F0;&#x4E3A;<code>&#x6CE8;&#x89E3;/Annotation</code>&#x3002;</p>
+<p>@Component &#x6700;&#x91CD;&#x8981;&#x7684;&#x4F5C;&#x7528;&#x662F;:</p>
+<p>  1.&#x901A;&#x8FC7;<code>selector</code>&#x5C5E;&#x6027;&#xFF08;&#x503C;&#x4E3A;CSS&#x9009;&#x62E9;&#x5668;&#xFF09;&#xFF0C;&#x544A;&#x8BC9;Angular2&#x6846;&#x67B6;&#x8FD9;&#x4E2A;&#x7EC4;&#x4EF6;&#x6E32;&#x67D3;&#x5230;&#x54EA;&#x4E2A;DOM&#x5BF9;&#x8C61;&#x4E0A;&#x3002;
+  2.&#x901A;&#x8FC7;<code>template</code>&#x5C5E;&#x6027;&#xFF0C;&#x544A;&#x8BC9;Angular2&#x6846;&#x67B6;&#xFF0C;&#x4F7F;&#x7528;&#x4EC0;&#x4E48;&#x6A21;&#x677F;&#x8FDB;&#x884C;&#x6E32;&#x67D3;&#x3002;</p>
+<p>&#x5728;alpha&#x7248;&#x672C;&#x4E2D;&#x7684;&#x6CE8;&#x89E3;<code>@View</code>&#x4F9D;&#x7136;&#x5B58;&#x5728;&#x5E76;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#xFF0C;&#x6BD4;&#x5982;:</p>
+<pre><code class="lang-typescript">@Component({selector:<span class="hljs-string">&quot;ez-app&quot;</span>})
+@View({template:<span class="hljs-string">&quot;&lt;h1&gt;Hello,Angular2&lt;/h1&gt;&quot;</span>})
+
+<span class="hljs-keyword">class</span> EzApp{}
+</code></pre>
+<h2 id="t3&#x6CE8;&#x89E3;/Annotation">&#x6CE8;&#x89E3;/Annotation <a href="#t3&#x6CE8;&#x89E3;/Annotation"> # </a></h2>
+<p>&#x4F60;&#x4E00;&#x5B9A;&#x597D;&#x5947;<code>@Component</code>&#x548C;<code>@View</code>&#x5230;&#x5E95;&#x662F;&#x600E;&#x4E48;&#x56DE;&#x4E8B;&#xFF1F;&#x770B;&#x8D77;&#x6765;&#x50CF;&#x5176;&#x4ED6;&#x8BED;&#x8A00;(&#x6BD4;&#x5982;python)&#x7684;<code>&#x88C5;&#x9970;&#x5668;</code>&#xFF0C;&#x662F;&#x8FD9;&#x6837;&#x5417;?ES6&#x4E2D;&#x5176;&#x5B9E;&#x5E76;&#x6CA1;&#x6709;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x8FD9;&#x5176;&#x5B9E;&#x662F;&#x5229;&#x7528;&#x4E86;<code>&#x8F6C;&#x7801;&#x5668;</code>&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x4E2A;&#x7279;&#x6027;:<code>&#x6CE8;&#x89E3;</code>&#x3002;&#x7ED9;&#x4E00;&#x4E2A;&#x7C7B;&#x6DFB;&#x52A0;&#x6CE8;&#x89E3;&#x7B49;&#x540C;&#x4E8E;&#x8BBE;&#x7F6E;&#x8FD9;&#x4E2A;&#x7C7B;&#x7684;<code>annotations</code>&#x5C5E;&#x6027;:</p>
+<pre><code class="lang-typescript"><span class="hljs-comment">//&#x6CE8;&#x89E3;&#x5199;&#x6CD5;</span>
+@Component({selector:<span class="hljs-string">&quot;ez-app&quot;</span>})
+<span class="hljs-keyword">class</span> EzApp{...}
+</code></pre>
+<pre><code class="lang-typescript"><span class="hljs-keyword">class</span> EzApp{...}
+
+EzApp.annotations = {<span class="hljs-keyword">new</span> Component({selector:<span class="hljs-string">&quot;ez-app&quot;</span>})}
+</code></pre>
+<p>&#x5F88;&#x663E;&#x7136;&#xFF0C;<code>&#x6CE8;&#x89E3;</code>&#x53EF;&#x4EE5;&#x770B;&#x505A;&#x8F6C;&#x7801;&#x5668;(typescript/traceur/babel)&#x5C42;&#x9762;&#x7684;<code>&#x8BED;&#x6CD5;&#x7CD6;</code>&#xFF0C;&#x4F46;&#x662F;&#x4E0E;python&#x7684;<code>&#x88C5;&#x9970;&#x5668;</code>&#x4E0D;&#x540C;,<code>&#x6CE8;&#x89E3;</code>&#x5728;&#x7F16;&#x8BD1;&#x8F6C;&#x7801;&#x65F6;&#x4EC5;&#x4EC5;&#x88AB;&#x653E;&#x5728;&#x7C7B;&#x5BF9;&#x8C61;&#x7684;<code>annotations</code>&#x5C5E;&#x6027;&#x91CC;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x5E76;&#x4E0D;&#x8FDB;&#x884C;&#x89E3;&#x91CA;&#x5C55;&#x5F00; &#x2014;&#x2014; &#x8FD9;&#x4E2A;&#x89E3;&#x91CA;&#x7684;&#x5DE5;&#x4F5C;&#x662F;Angular2&#x6846;&#x67B6;&#x5B8C;&#x6210;&#x7684;:</p>
+<p>&#x636E;&#x79F0;&#xFF0C;&#x6CE8;&#x89E3;/Annotation&#x7684;&#x529F;&#x80FD;&#x5C31;&#x662F;Angular2&#x56E2;&#x961F;&#x5411;&#x7F16;&#x8BD1;&#x5668;&#x5F00;&#x53D1;&#x56E2;&#x961F;&#x63D0;&#x51FA;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x901A;&#x5E38;&#x4E0D;&#x662F; &#x7F16;&#x8BD1;&#x5668;&#x7684;&#x9ED8;&#x8BA4;&#x9009;&#x9879;&#xFF0C;&#x56E0;&#x6B64;&#x4F60; &#x770B;&#x5230;&#xFF0C; &#x6211;&#x4EEC;&#x914D;&#x7F6E;systemjs&#x5728;&#x4F7F;&#x7528;TypeScript&#x8F6C;&#x7801;&#x65F6;&#x6253;&#x5F00;&#x6CE8;&#x89E3;&#xFF1A;</p>
+<pre><code class="lang-typescript">System.config({
+    transpiler:<span class="hljs-string">&apos;typescript&apos;</span>,
+    typescriptOptions:{ emitDecoratorMetadata:<span class="hljs-literal">true</span>}
+  });
+</code></pre>
+<p>&#x7684;</p>
 
         <div class="copyright">Powered by <a href="https://github.com/jaywcjlove/idoc" target="_blank">idoc</a>. Dependence <a href="https://nodejs.org">Node.js</a> run.</div>
     </div>
