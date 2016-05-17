@@ -83,23 +83,188 @@ System.config({
   });
 ```
 
+## 组件开发 - 声明元数据
 
+### Selector 选择符
 
+使用 `Component` 注解的 `selector` 属性来告诉 Angular2 框架，当编译、链接模板时，遇到对应元素就实例化一个组件对象。
 
+#### 标签名选择符
 
+```typescript
+@Component({selector:"ez-one",template:"TAGNAME-SELECTOR"})
+class EzOne{}
+```
 
+将匹配：`<ez-one>...</ez-one>`
 
+#### CSS 类选择符
 
+```typescript
+@Component({selector:".ez-two",template:"CSSCLASS-SELECTOR"})
+class EzTwo{}
+```
 
+将匹配： `<any class="ez-two">...</any>`
 
+#### 属性选择符
 
+```typescript
+@Component({selector:"[ez-three]",template:"ATTR-SELECTOR"})
+class EzThree{}
+```
 
+将匹配：`<any ez-three>...</any>`
 
+#### 属性值选择符
 
+```typescript
+@Component({selector:"[ez-four=123]",template:"ATTRVAL-SELECTOR"})
+class EzFour{}
+```
 
+将匹配：`<any ez-four='123'>...</any>`
 
+### template/templateUrl - 声明模板
 
+组件的Component注解最重要的属性两个属性之一就是`template` - 模板。 Angular2的模板是兼容HTML语法的，这意味着你可以使用任何标准的HTML标签编写 组件模板。
 
+所以，在最简单的情况下，一个Angular2组件的模板由标准的HTML元素构成，看起来就是 一段HTML码流。Angular2将原封不同地渲染这段模板：
 
+有两种方法为组件指定渲染模板：
 
-的
+#### 1. 内联模板
+
+可以使用组件的View注解中的template属性直接指定内联模板：
+
+```typescript
+@Component({
+    template : `<h1>hello</h1>
+                <div>...</div>`
+})
+```
+
+#### 2. 外部模板
+
+也可以将模板写入一个单独的文件：
+
+```html
+<!--ezcomp-tpl.html-->
+<h1>hello</h1>
+<div>...</div>
+```
+
+然后在定义组件时，使用templateUrl引用外部模板：
+
+```typescript
+@Component({
+    templateUrl : "ezcomp-tpl.html"
+})
+```
+
+### style/styleUrls - 设置样式
+
+组件既然处于UI层，就应当好看些，好看是构造良好用户体验的一部分。Angular2的 组件模板基于HTML，那么显然，我们需要通过样式表/CSS来调整组件的外观。
+
+和模板类似，我们有两种方法为组件设置CSS样式：
+
+#### 1. 内联样式
+
+可以使用组件Component注解的styles属性来设置内联样式：
+
+```typescript
+@Component({
+    styles:[`
+        h1{background:#4dba6c;color:#fff}     
+    `]
+})
+
+```
+
+#### 2.外部样式
+
+也可以把样式定义在单独的样式文件中：
+
+```typescript
+/*ez-greeting.css*/
+h1{background:#4dba6c;color:#fff}     
+
+```
+
+然后使用 `Component注解` 的 `styleUrls` 属性来引入外部样式:
+
+```typescript
+@Component({
+    styleUrls:["ez-greeting.css"]
+  })
+```
+
+### proerties - 声明属性
+
+属性是组件暴露给外部世界调用的接口，调用者通过设置不同的属性值来定制组件的行为与外观。
+
+在 Angular2 中为组件增加 `属性` 只需要在 Component 注解的 `properties` 属性中声明组件的 `成员变量` 就可以了:
+
+```typescript
+@Component({
+    properties:["name","country"]
+  })
+```
+
+上面的代码将组件的成员变量 `name` 和 `country` 暴露为同名属性，这意味着在 `EzApp` 的模板中，可以直接使用中括号来设置 `EzCard` 对象的属性:
+
+```typescript
+@Component({
+    directives:[EzCard],
+    template:'<ez-card [name]="'leof'" [country]="'中国'"></ez-card>'
+  })
+
+```
+
+### events - 声明事件
+
+与属性相反，事件从组件的内部流出，用来通知外部世界发生了一些事情
+
+在 Angular2 中为组件增加事件接口也非常简单：定义一个 `事件源/EventEmitter` ，然后通过 `Component注解` 的 `events` 接口暴露出来
+
+```typescript
+//EzCard
+@Component({
+    events:["change"]
+  })
+class EzCard{
+  constructor(){
+    this.change = new EventEmitter();
+  }
+}
+```
+
+上面的代码将组件 `EzCard` 的事件源 `change` 暴露为 `同名事件`，这意味着调用者 `EzApp` 组件的模板中，可以直接使用 `小括号` 语法挂接事件监听函数:
+
+```typescript
+@Componen({
+    template:"<ez-card (change)="onChange()"></ez-card>"
+  })
+
+```
+
+每次 `EzCard` 触发 `change` 事件时，`EzApp` 的 `onChange()` 方法都将被调用.
+
+### directives - 引用指令
+
+在Angular2中，一个组件的模板内除了可以使用标准的HTML元素，也可以使用自定义的组件！
+
+这是相当重要的特性，意味着Angular2将无偏差地对待标准的HTML元素和你自己定义的组件。这样， 你可以建立自己的领域建模语言了，这使得渲染模板和视图模型的对齐更加容易，也使得模板的语义性 更强：
+
+声明要在模板中使用的组件
+
+不过，在使用自定义组件之前，必需在组件的Component注解中通过directives属性声明这个组件：
+
+```typescript
+@Component({
+    directives : [EzComp],
+    template : "<ez-comp></ez-comp>"
+})
+```
+
+你应该注意到了，directives属性的值是一个数组，这意味着，你需要在这里声明所有你需要在模板 中使用的自定义指令。
