@@ -724,3 +724,123 @@ NgFor指令应用在template元素上，对`ngForOf`属性指定的数据集中�
 <ANY *ngFor="#item of items;#i=index">...</ANY>
 毫无疑问，应当尽量使用*ngFor的简便写法，这可以提高模板的可读性。
 ```
+
+## 组件开发 - 在模板中使用管道
+
+### 管道
+
+从视图模型中直接获得的数据，不一定完全适合于人们查看，比如当我们需要显示一个班级所以学生的平均分的时候:
+
+```html
+<div>average:{{avgScore() }}</div>
+```
+
+运行起来，一切都很正常，只是这个数开起来有些小刺眼 `90.9999999999` - 毫无必要的小数。
+
+这时就 Angular2 的管道就能派上用场了：在模板中对输入数据进行变换，并输出变换后的结果。在你模板中，我们使用 `|` 来调用一个管道操作，并使用 `:` 来向管道传入参数。
+
+```html
+{{ data | <pipename>:<arg1>:<arg2> }}
+```
+
+我们使用预制的 `DecimalPipe` 对平均数进行处理，保留两位小数：
+
+```html
+<div>average : {{ avgScore() | number:'2.2-2' }}</div>
+```
+
+`number` 对应着 `DecimalPipe` 对象， `'2.2-2'` 表示调用这个管道时传入的参数为 `'2.2-2'`，对于DecimalPipe，这三个2分别表示最小整数位、最小小数位和最多小数位。
+
+现在，平均分显示为:`90.06`
+
+### 预置参数
+
+除了 `DecimalPipe` ，Angular2 还预置了以下的管道来对常见数据类型进行转换：
+
+#### DatePipe - 对日期/时间数据进行格式转换
+
+在模板中使用 `date` 来引入 `DatePipe` 。参数用来指定格式：
+
+```html
+<!-- day:new Date('2014-01-01') 结果：'01/01/14' -->
+{{ day | date:'yyMMdd' }}
+
+```
+
+#### JsonPipe - 将 JSON 对象转化为字符串
+
+在模板中使用 `json` 来引用 `JsonPipe` ，其实现基于 `JSON.stringify()`。这个管道主要用于调试。
+
+```html
+<!-- 结果: '{x:1,y:2}' -->
+{{ {x:1,y:2} | json }}
+```
+
+#### PercentPipe - 将数值转化为百分比
+
+在模板中使用 `percent` 来引用 `PercentPipe`。参数格式同 `DecimalPipe`
+
+```html
+<!-- 结果:123.456% -->
+{{ 1.23456 | percent:'1.2 - 3' }}
+```
+
+#### SlicePipe - 提取输入字符串中的指定切片
+
+在模板中使用 `slice` 来引用 SlicePipe。第一个参数指定切片的起始索引，第二个参数指定切片的终止索引的下一个。
+
+```html
+<!-- 结果 '123' -->
+{{ '01234567890 | slice:1:4' }}
+
+```
+
+#### UpperCasePipe - 将输入字符串变换为大写
+
+```html
+{{ "this is a demo" | uppercase }}
+```
+
+#### LowerCasePipe - 将输入字符串转换为小写
+
+```html
+{{ "WHAT A WONDERFUL WORLD" | lowercase }}
+```
+
+### 管道级联
+
+```html
+<!-- 结果:'WHAT' -->
+{{ "what a wonderful day" | slice:0.4 | uppercase }}
+
+```
+
+### 定制管道
+
+Angular2 预置的管道并不是特别丰富，不过好在很容易自己实现一个管道。
+
+1.声明元数据
+
+和一个组件类似
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+r
