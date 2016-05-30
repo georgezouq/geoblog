@@ -821,9 +821,107 @@ Angular2 预置的管道并不是特别丰富，不过好在很容易自己实�
 
 1.声明元数据
 
-和一个组件类似
+和一个组件类似，一个管道也是具有特定元数据的类：
 
+```typescript
+@Pipe({name:'ezp'})
+class EzPipe{...}
 
+```
+
+`Pipe` 注解为被装饰的类附加了管道元数据，其最重要的属性是 `name`，也就是我们在模板中调用这个管道时使用的名称。上面定义的管道，我们可以在模板中这样使用：{{ data | ezp }}
+
+#### 2.实现 transform 方法
+
+管道必须实现一个预定的方法 `transform(input,args)`这个方法的 `input` 参数代表输入数据，args参数代表输入参数，返回值江北作为管道的输出。
+
+```typescript
+import {Component,Pipe} from "angular2/core";
+import {bootstrap} from "angular2/platform/brower";
+
+@Pipe({name:"title"})
+class TitlePipe{
+  transform(input,args){
+    return input.split(" ")
+        .map(word => word[0].toUpperCase() + word.slice(1)).join(" ");
+
+  }
+}
+
+@Component({
+      selector:"ez-app",
+      template:`
+        <h1>管道/Pipe</h1>
+        <p>{{text | title}}</p>
+      `,
+      pipes:[TitlePipe]
+  })
+  class EzApp{
+      constructor(){
+        this.text = "what a wonderful world !";
+      }
+  }
+
+```
+
+下面的实例简单地将输入数据与错有参数拼接在一起：
+
+```typescript
+@Pipe({name:'ezp'})
+class EzPipe{
+  transform(input,args){
+    return input + " " + args.join(" ");
+  }
+}
+```
+
+#### 3.使用自定义管道
+
+在组件的模板中使用自定义管道之前，需要预先声明一下，以便 Angular2 注入，使用 `Component` 的注解的 `pipes` 属性进行声明: `pipes:[EzPipe]`。
+
+现在我们就可以使用这个自定义管道了:
+
+```typescript
+<!-- 结果:"call join mary linda" -->
+{{ "call" | ezp:'john':'mary':'linda' }}
+```
+
+### 有状态管道
+
+我们之前了解的管道，包括 Angular2 预置的管道以及我们自己实现的管道，都有一个特点，就是输出仅仅依赖于输入，这样的管道在 Angular2 中被称为 `无状态管道/Stateless Pipe`。
+
+对于无状态管道，当输入没有变化时，Angular2 框架不会重新计算管道的输出。但也许有些时候，我们希望及时输入没有变化，也持续的检测管道的输出。例如，我们设计了一个倒计时管道，向他输入一个秒数，会自动多次输出直至0秒：
+
+```typescript
+{{ 10 | countdown }}
+```
+
+实现 countdown 的逻辑很简单，记录起始值，然后开一个1秒1次的计时器，逐次减至0秒即可。
+
+关键在于，在默认情况下，Angular2 框架仅仅执行一次管道的 `transform()` 方法，我们需要使用 `Pipe` 注解的 `pure` 属性为`false`，要求 Angular2 框架在每个变化检查周期都执行管道的 `transform()` 方法：
+
+```typescript
+@Pipe({
+    name:"countdown",
+    pure:false
+  })
+class EzCountdown{...}
+```
+
+很显然，`countdown` 管道的输出不仅依赖于输入，还依赖于其内部的运行状态。因此，这样的管道在 Angular2 中被称为 `有状态管道/Stateful Pipe`。
+
+### AsyncPipe
+
+AsyncPipe 是 Angular2 框架预置的一个有状态管道，它的输入是一个异步对象：`Promise`对象，`Observable`对象，`EventEmitter`对象。
+每当异步对象产生新的值，`AsyncPipe` 会返回这个值，因此，AsyncPipe 需要 Angular2 框架 持续进行变化检测，它的 `Pipe` 注解的 `pure` 属性值为 false
+
+## NgForm - 表单指令
+
+`NgForm` 指令为 `表单元素/form` 建立一个控件组对象，作为控件的容器；而 `NgControlName` 指令则为 `宿主input元素` 建立一个控件对象，并将该控件加入到 `NgForm` 指令建立的控件组中：
+
+#### 局部变量
+
+通过使用 `#` 符号，我们创建了一个引用控件组对象（注意，不是form元素！）的局部变量 `f`。这个变量最大的作用是：它的value属性是一个简单的JSON对象，键对应于input元素的 `ng-control` 属性，值对应于input元素的值:
 
 
 
