@@ -1,3 +1,4 @@
+
 # Angular 2 Quick Start
 
 ## ES6 工具链
@@ -923,6 +924,479 @@ AsyncPipe 是 Angular2 框架预置的一个有状态管道，它的输入是一
 
 通过使用 `#` 符号，我们创建了一个引用控件组对象（注意，不是form元素！）的局部变量 `f`。这个变量最大的作用是：它的value属性是一个简单的JSON对象，键对应于input元素的 `ng-control` 属性，值对应于input元素的值:
 
+### NgForm - 表单指令
+
+NgForm 指令为表单元素/form 建立一个组件对象，作为空间的容器；而NgControlName 指令则为 `宿主input元素` 建立一个控件对象，并将该控件加入到 `NgForm` 指令建立的控件组中:
+
+```typescript
+@Component({
+    selector:"ez-app",
+    directives:[FORM_DIRECTIVES,CORE_DIRECTIVES],
+    template:`
+      <form #f="ngForm" (submit)="search(f.value)">
+        <select>
+          <option value="web">网页</option>
+          <option value="news">新闻</option>
+          <option value="image">图片</option>
+        </select>
+        <input type="text" ngControl="kw">
+        <button type="submit">搜索</button>
+      </form>
+      <!-- 给个简单的反馈 -->
+      <h1 *ngIf="kw != ''">正在搜索{{kw}}...</h1>
+    `,
+    styles:[`form{background:#90a4ae;padding:5px;}`]
+  })
+class EzApp{
+  constructor(){
+    this.kw = "";
+  }
+  search(val){
+    this.kw = val.kw;
+    //假装在搜索，2秒钟后返回
+    setTimeout(() => this.kw = "",2000);
+  }
+}
+bootstrap(EzApp);
+```
+
+### NgControlName - 命名控件指令
+
+如上所述，`NgControlName` 指令必须作为 `NgForm` 或 `NgFormModel` 的后代使用，因为这个指令需要将创建的控件对象添加到祖先(NgForm 或 NgFormModel)所创建的控件组中。
+
+`NgControlName` 指令为宿主的DOM对象创建一个控件对象，并将这个对象以`ngControl`属性指定的名称绑定在DOM对象上:
+
+```html
+<form #f="ngForm">
+    <input type="text" ngControl="user">
+    <input type="text"ngControl="pass" [(ngModel)]="data.pass">
+</form>
+```
+ngModel 即是 `NgControlName` 指令的属性，也是他的事件，所以下面的两种写法是等价的:
+
+```html
+<input type="text" ngControl="user" [(ngModel)]="data.user">
+<input type="text" ngControl="user" [(ngModel)]="data.user" (ngModel)="data.user">
+```
+
+### NgFormControl - 绑定已有控件对象
+
+与 `NgControlName` 指令不同,`NgFormControl` 将已有的 `控件/Control` 对象绑定到DOM元素上。当需要对输入的值进行初始化时，可以使用`NgFormControl`指令将DOM元素绑定到组件 `EzComp` 的成员，变量`movie`上，我们需要在构造函数中先创建这个`Control`对象:
+
+```typescript
+@View({
+    //将输入元素绑定到已经创建的控件对象上
+    template:`<input type="text" [NgFormControl]="movie">`
+  })
+class EzComp{
+  constructor(){
+    //创建控件对象
+    this.movie = new Control("Matrix II - Reload");
+  }
+}
+```
+
+`控件/Control` 是 Angular2 中对表单输入元素的抽象，我们使用其`value`属性，就可以获得对应的输入元素的值
+
+与`NgControlName`指令的另一个区别是，`NgFormControl`不需要`NgForm`或`NgFormModel`的祖先
+
+```typescript
+import {Component} from "angular2/core";
+import {bootstrap} from "angular2/platform/brower";
+import {Control,FORM_DIRECTIVES} from "angular2/common";
+
+@Component({
+    selector:"ez-app",
+    directives:[FORM_DIRECTIVES],
+    template:`
+      <div>
+          <ul>
+            <!-- 将输入元素绑定到已经创建的控件对象 -->
+            <li>姓名:<input type="text" [ngFormControl]="name"></li>
+            <li>地址:<input type="text" [ngFormControl]="address"></li>
+            <li>电话:<input type="text" [ngFormControl]="telephone"></li>
+          </ul>
+      </div>
+      <!-- 调试:转储模型信息 -->
+      <pre>{{dump()}}</pre>
+    `,
+    style:[`
+      form{background:#e1f5fe;}
+      ul{list-style:none;padding:10px;margin:0px}
+      li{line-height:30px;}
+    `]
+  })
+class EzApp{
+  constructor(){
+    this.name = new Control("Jason");
+    this.address = new Control("London U.K.");
+    this.telephone = new Control("114");
+  }
+  dump(){
+    //读取控件对象的值
+    var val = {
+      name : this.name.value,
+      adddress : this.address.value,
+      telephone : this.telephone.value
+    }
+    return JSON.stringify(val,null,"\t");
+  }
+}
+bootstrap(EzApp);
+```
+
+### NgFormModel - 邦定已有组件组
+
+`NgFormModel` 指令类似于 `NgControlGroup` 指令，都是为控件提供容器。但区别在于`NgFormModel` 指令将已有的控件组绑定到DOM对象上:
+
+```typescript
+@View({
+    template:`
+      <!-- 绑定控件组与控件对象 -->
+      <div [ngFormModel]="controls">
+        <input type="text" ngControl="name">
+        <input type="text" ngControl="age">
+      </div>
+    `
+  })
+class EzComp{
+  constructor(){
+    //创建组件组及控件对象
+    this.controls = new ControlGroup({
+        name:new Control("Jason"),
+        age:new Control("45")
+      });
+  }
+}
+```
+
+`NgFormModel` 指令可以包含 `NgControlGroup` 指令，以便将不同性质的输入分组
+
+## Directive - 定义指令元数据
+
+`指令` 是 Angular 对HTML进行拓展的基本手段，与Angular1x不同，在 Angular2 中，指令被明确地划分为三种类型：
+
+- 组件 - 组件其实就是带有模板的指令
+- 属性指令 - 属性指令用来改变所在元素的外或行为，例如 `NgClass` 和 `NgStyle` 指令
+- 结构指令 - 结构指令用来向DOM中添加或删除元素，例如`NgIf`和`NgFor`指令.
+
+组件使用 `Component` 注解来装饰组件类，而属性指令和结构指令则使用 `Directive` 注解来装饰指令类。
+
+#### 1.Directive 注解 - 声明指令元数据
+
+Directive 注解最重要的属性就是 `selector` ，它指定了触发Angular2框架生成指令实例的CSS选择器。
+
+```typescript
+@Directive({selector:"[ez-h]"})
+class EzHilight{...}
+```
+
+模板中具有 `en-h` 的元素，Angular2 框架都将为其生成一个 `EzDirective` 类实例。例如，下面的模板中框架将为Div元素实例化EzHilight:
+```html
+<div ez-h></div>
+```
+
+2.ElementRef - 获取指令所在DOM对象
+
+很显然，我们需要在EzDirective类的实现中进行DOM操作，这需要告诉Angular2框架向我们注入ElementRef对象，其nativeElement属性就是对应的DOM对象:
+
+```Javascript
+class EzHilight{
+  constructor(@Inject(ElementRef) er){
+    var el = er.nativeElement;
+    el.style.background="yellow";
+  }
+}
+
+@Component({
+  selector:"ez-app",
+  directives:[EzHilight],
+  template:`
+    <p>Now it is a <i ez-h>good</i> time to learn some <i ez-h>wonderful</i> things!</p>
+  `
+})
+class EzApp{}
+
+bootstrap(EzApp);
+```
+
+### inputs - 声明属性值映射
+
+很显然，在定义组件模板时，我们通常会给属性设定一个值，比如我们希望一下模板片段中，将指令所在的DOM对象的背景设置为指定颜色:
+
+```html
+<div [ez-h]="'black'">...</div>
+```
+
+通过使用`Directive`注解的`inputs`属性，我们可以将DOM对象的属性映射到指令对象的属性，例如对于下面定义的指令:
+
+```typescript
+@Directive({
+    selector:["ez-h"],
+    inputs:["bgColor:ez-h"]
+  })
+class EzHilight{...}
+```
+当在模板中使用这个指令时，EzHilight对象的`bgColor`属性自动绑定到模板中`div`元素的`ez-h`属性值。对于指令而言，这时一个输入，每当ez-h发生变化时，Angular2都会自动设置`EzHilight` 的 `bgColor` 属性。
+
+我们可以使用ES6中的setter，在EzHilight中捕捉每个变化的时刻:
+
+```typescript
+class EzHilight{
+  set bgColor(v){
+    this.el.style.background = v;
+  }
+}
+```
+
+### host - 声明事件监听
+
+如果指令的实现需要监听所在DOM元素的时间，可以使用`Directive`注解的`host`属性。
+
+```typescript
+@Directive({
+    selector:"[ez-h]",
+    host:{
+      '(click)':'onMyClick()',
+      '(mouseover)':'onMyMouseOver()'
+    }
+  })
+class EzHilight{...}
+```
+
+你看到，host 属性的值应当是一个JSON对象，其键为一对小括号包裹的事件名称，书写方法与在模板中一致；值为时间处理表达式，通常是对指令类中方法的调用。例如:
+
+```typescript
+class EzHilight{
+  onMyClick(){...}
+  onMyMouseOver(){...}
+}
+```
+
+### renderer - 使用渲染器
+
+在 EzHilight 指令的实现中，我们是直接通过 `ElementRef` 对象的 `nativeElement` 属性来直接操作浏览器DOM的，不过 Angular2 其实不希望我们这么做，因为这样使得我们的代码与浏览器纠缠不清，有违 Angular2 的跨平台本意。
+
+在 Angular2 中，引入了 `渲染器/renderer` 的概念，它定义了一组规范的接口 `Renderer`，对于不同的平台，有不同的实现。比如浏览器对应的 Renderer 实现是 `DomRenderer`。
+
+在指令的构造函数中，我们可以要求 Angular2 框架注入当前使用的渲染器对象:
+
+```typescript
+class EzHilight{
+    constructor(@Inject(ElementRef) el,@Inject(Renderer) renderer){
+        this.el = el;
+        this.renderer = renderer;
+    }
+}
+```
+
+Angular2 希望我们使用 `Renderer` 来代替直接的DOM操作，这将保证我们的代码会的跨平台特性，现在我们使用 Renderer 的 `setElementStyle()` 方法来修改样式:
+
+```javascript
+import {Component,Directive,ElementRef,Renderer,Inject} from "angular/core";
+import {bootstrap} from "angular2/platform/browser";
+
+@Directive({
+      selector:"[ez-h]",
+      inputs:["bgColor:ez-h"],
+      host:{
+        "(click)":"onclick($event)"
+      }
+  })
+class EzHilight{
+    constructor(@Inject(ElementRef)er,@Inject(Renderer) renderer){
+        this.renderer = renderer;
+        this.er = er;
+        renderer.setElementStyle(er,"cursor","pointer");
+        this.flag = true;
+    }
+    set bgColor(v){
+        this._bgColor = v;
+        this.renderer.setElementStyle(this.er,"background",v);
+    }
+    get bgColor(){
+        return this._bgColor;
+    }
+    onClick($event){
+        if(this.flag)
+            this.renderer.setElementStyle(this.er,"background","transparent");
+        else
+            this.renderer.setElementStyle(this.er,"background",this.bgColor);
+        this.flag = !this.flag;  
+    }  
+}
+//组件定义
+@Component({
+    selector:"ez-app",
+    directives:[EzHilight],
+    template:`
+      <p>Now it is a <i [ez-h]="'red'">good</i> time to learn some <1 [ez-h]="'green'">wonderful</i> things!</p>
+    `
+  })
+class EzApp{}
+
+bootstrap(EzApp);
+```
+
+## 服务 - 封装可复用代码
+
+在 Angular2 中，`服务` 用来封装可复用的功能代码，比如 `http` 服务，封装了 `ajax` 请求的细节，在不同的组件中，我们只需要调用 `http` 服务的 API 接口就可以给组件增加 `ajax` 请求的功能。
+
+Angular2 中 实现一个服务非常简单直接：定义一个类，然后他就是服务了：
+
+```javascript
+class EzAlgo{
+    add(a,b){return a + b;}
+    sub(a,b){return a + b;}
+}
+```
+上面的代码定义了一个相当弱智的算法服务 `EzAlgo`，它有两个API - add() 用来计算两个数相加的`和`，`sub()` 用来计算两个数的 `差`
+
+```javascript
+import {Component} from "angular2/core";
+import {bootstrap} from "angular2/platform/brower";
+
+//定义一个简单的算法服务
+class EzAlgo{
+    add(a,b){ return a + b; }
+    sub(a,b){ return a - b; }
+}
+//组件定义
+@Component({
+    selector:"ez-app",
+    template:`
+      <form>
+          <input type="text" ngControl="a" [(ngMpdel)]="a"> +
+          <input type="text" ngControl="b" [(ngModel)]="b">
+          =
+          {{add()}}
+      </form>`
+})
+class EzApp{
+    constructor(){
+        this.a = 37;
+        this.b = 128;
+        this.algo = new EzAlgo();
+    }
+    add(){
+        var a = +this.a;
+        var b = +this.b;
+        return this.algo.add(a,b);
+    }
+}
+bootstrap(EzApp);
+```
+### 注入服务 - Providers
+
+在上一节中，组件 `EzAlgo` 直接在构造函数中实例化了一个 `EzAlgo` 对象，这造成了  `EzApp` 和 `EzAlgo` 的强耦合，我们可以使用 Angular2 的 `注入器/Injector` 进行解耦。
+
+`EzApp` 组件使用 `Component注解` 和 `appInjector` 属性向 Angular2 框架声明其依赖于 `EzAlgo`，并在其构造函数的参数表中使用 `Inject注解` 声明注入点，而后剩下的事就可以交给 Angular2 办了。
+
+```javascript
+import {Inject,Component} from "angular2/core";
+import {bootstrap} from "angular2/platform/browser";
+
+//定义一个简单的算法服务类
+class EzAlgo{
+    add(a,b){ return a + b;}
+    sub(a,b){ return a - b;}
+}
+//组件定义
+@Component({
+    selector:"ez-app",
+    providers:[EzAlgo] //声明依赖
+    template:`
+<form>
+    <input type="text" ngControl="a" [(ngModel)]="a">
+    +
+    <input type="text" ngControl="b" [(ngModel)]="b">
+    =
+    {{add()}}
+</form>`,
+    style:[`
+        *{font-size:30px;font-weight:bold;}
+        input{width:100px;}
+      `]
+})
+class EzApp{
+    //Angular2 框架负责需要注入订单对象
+    constructor(@Inject algo){
+        this.a = 37;
+        this.b = 128;
+        this.algo = algo;
+    }
+    add(){
+        var a = +this.a,
+            b = +this.b,
+        return this.algo.add(a,b);
+    }
+}
+bootstrap(EzApp);
+```
+
+### Inject - 注入器
+
+在大多数情况下，我们只要在类的构造函数列表中使用 `Inject` 注解，就可以告诉 Angular2 框架向我们的类代码中注入正确的对象。
+
+Angular2 的依赖注入机制实现的核心是一个座位第三方的 `注入器/Injector`。通常使用 Injector 类的静态方法 `resolveAndCreate()` 类实例化一个注入器，在实例化时需要指定所有依赖项：
+
+```javascript
+class A{...}
+class B{...}
+class C{...}
+var Injector = Injector.resolveAndCreate({A,B,C});
+```
+
+一旦获得了注入器实例，就可以使用其 `get()` 方法来获得指定的对象：
+
+```javascript
+var a = Injector.get(A); //A的实例
+var b = Injector.get(B); //B的实例
+```
+值得指出的是，对于一个注入器而言，其仅仅维护每个依赖项的单一实例，也就是说，无论你调用 `Injector.get(A)` 多少次，他总是会返回同一个对象。
+
+每当Angular2框架引导启动一个组件时，会自动根据组件 `Component` 注解的 `providers` 属性创建注入器，然后根据组件类的 `Inject` 注解，调用注入器的 `get()` 获得对应的实例注入到组件类的构造函数中:
+
+```javascript
+import {Imjector,Inject} from "angular2/core";
+
+class Canvas{
+    constructor(){
+        var canvas = document.createElement("canvas");
+        canvas.setAttribute("width","600px");
+        canvas.setAttribute("height","400px");
+        var host = document.querySelector("ez-app");
+        host.innerHTML = "";
+        host.appendChild(canvas);
+        this.ctx = canvas.getContext("2d");
+    }
+}
+class Face{
+    constructor(@Inject(Canvas) canvas){
+        this.canvas = canvas;
+    }
+    render(){
+        with(this.canvas.ctx){
+            beginPath();
+            strokeStyle="black";
+            fillStyle="black";
+            arc(100,100,100,0,Math.PI*2);
+            stroke();
+            beginPath();
+            arc(70,70,20,0,Math.PI*2);
+            arc(130,70,20,0,Math.PI*2);
+            fill();
+            beginPath();
+            arc(100,110,50,.5,Math.PI-.5);
+            stroke();
+        }
+    }
+}
++function bootup(){
+    var injector = Injector.resolveAndCreate([Canvas,Face]);
+    face.render();
+}();
+```
 
 
 
