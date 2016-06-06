@@ -24,7 +24,8 @@
             {
                 "AngularJS": [
                     "AngularJS 编码规范.md",
-                    "Angular2 知识点.md"
+                    "Angular2 知识点.md",
+                    "Transitioning from server to client side web development with angular2.md"
                 ]
             },
             {

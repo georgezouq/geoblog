@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>geoblog</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+</head>
+<body>
+<div class="nav">
+    <div class="logo">
+        
+            geoblog
+        
+    </div>
+<ul><li><a href="../../index.html">index</a></li><li><a href="#"><span></span>AngularJS</a><ul><li><a href="../../html/AngularJS/AngularJS 编码规范.html">AngularJS 编码规范</a></li><li><a href="../../html/AngularJS/Angular2 知识点.html">Angular2 知识点</a></li><li class="active"><a href="../../html/AngularJS/Transitioning from server to client side web development with angular2.html">Transitioning from server to client side web development with angular2</a></li></ul></li><li><a href="#"><span></span>工具使用</a><ul><li><a href="../../html/工具使用/如何编写GitHub的ReadMe.html">如何编写GitHub的ReadMe</a></li><li><a href="../../html/工具使用/Gulp Getting Started.html">Gulp Getting Started</a></li><li><a href="../../html/工具使用/TypeScript.html">TypeScript</a></li></ul></li><li><a href="#"><span></span>CSS</a><ul><li><a href="../../html/CSS/Less与Sass.html">Less与Sass</a></li></ul></li><li><a href="#"><span></span>JQuery相关</a><ul><li><a href="../../html/JQuery相关/JQuery-Sortable排序.html">JQuery-Sortable排序</a></li><li><a href="../../html/JQuery相关/JqueryUI-Draggable(拖动).html">JqueryUI-Draggable(拖动)</a></li></ul></li><li><a href="#"><span></span>ES6</a><ul><li><a href="../../html/ES6/ES6方法点评.html">ES6方法点评</a></li></ul></li><li><a href="#"><span></span>数据相关</a><ul><li><a href="../../html/数据相关/Python 爬虫.html">Python 爬虫</a></li><li><a href="../../html/数据相关/Spark.html">Spark</a></li></ul></li><li><a href="#"><span></span>MQTT</a><ul><li><a href="../../html/MQTT/MQTT协议-推送.html">MQTT协议-推送</a></li><li><a href="../../html/MQTT/MQTT协议-理论.html">MQTT协议-理论</a></li></ul></li></ul></div>
+
+
+<div class="warpper">
+
+    <div class="page-toc">
+        <ul><li><a href="#t0Transitioning from Server to Client Side Web Development with Angular 2">Transitioning from Server to Client Side Web Development with Angular 2</a><ul><li><a href="#t1Part 1:History">Part 1:History</a><ul><li><a href="#t2Brief history of Dynamic Web">Brief history of Dynamic Web</a></li><li><a href="#t3Net Effect">Net Effect</a></li><li><a href="#t4Evolution to GUI">Evolution to GUI</a></li></ul></li><li><a href="#t5Part2: Generic Architecture">Part2: Generic Architecture</a><ul><li><a href="#t6Thin">Thin</a></li></ul></li><li><a href="#t7Authentication (身份认证)">Authentication (身份认证)</a></li><li><a href="#t8Authorization (授权)">Authorization (授权)</a></li></ul></li></ul>
+    </div>
+    
+    <div class="content markdown-body">
+        <h1 id="t0Transitioning from Server to Client Side Web Development with Angular 2">Transitioning from Server to Client Side Web Development with Angular 2 <a href="#t0Transitioning from Server to Client Side Web Development with Angular 2"> # </a></h1>
+<p>Original:   <a href="http://angularshowcase.github.io/ng2-bootstrap-sbadmin/slides/20151110/assets/player/KeynoteDHTMLPlayer.html#0">http://angularshowcase.github.io/ng2-bootstrap-sbadmin/slides/20151110/assets/player/KeynoteDHTMLPlayer.html#0</a></p>
+<h2 id="t1Part 1:History">Part 1:History <a href="#t1Part 1:History"> # </a></h2>
+<h3 id="t2Brief history of Dynamic Web">Brief history of Dynamic Web <a href="#t2Brief history of Dynamic Web"> # </a></h3>
+<ul>
+<li><p>1993 : Someone somewhere uses C to customize the HTML devlivered to a brower.Yahoo is born .Perl,ColdFusion,PHP(all via CGL) follow.</p>
+</li>
+<li><p>1996 : Iframes allow partial page to be loaded via parameterized URL.</p>
+</li>
+<li><p>1998 : HTML4/DHTML - JS manipulating DOM and dynamic style</p>
+</li>
+<li><p>2002 : XHR/Ajax opens door from &quot;single page apps&quot;.</p>
+</li>
+<li><p>2006 : JS &amp; CSS frameworks emerge,large apps become hard to maintain.</p>
+</li>
+<li><p>2010 : MVC(ExtJS,Angular) addresses separation of concerns.Unit testing and TDD emerges and grows.</p>
+</li>
+<li><p>2013 : Asm/WebAsm-based languages address JS shortcomings.</p>
+</li>
+<li><p>2015 : First frameworks written in type safe languages</p>
+</li>
+</ul>
+<h3 id="t3Net Effect">Net Effect <a href="#t3Net Effect"> # </a></h3>
+<ul>
+<li><p>Web finally &quot;Just another native environment&quot;.</p>
+</li>
+<li><p>Server does not differentiate by client - Same REST everywhere,server not responsible for view.</p>
+</li>
+<li><p>Web developers avoid politics of fragile server builds,work with tooling and workflows tuned to their productivity instead of some other team&apos;s</p>
+</li>
+<li><p>Faster,more reliable web development due to build process and type safety.</p>
+</li>
+</ul>
+<h3 id="t4Evolution to GUI">Evolution to GUI <a href="#t4Evolution to GUI"> # </a></h3>
+<h2 id="t5Part2: Generic Architecture">Part2: Generic Architecture <a href="#t5Part2: Generic Architecture"> # </a></h2>
+<p>---------------- Thin vs. Fat Client --------------------</p>
+<h3 id="t6Thin">Thin <a href="#t6Thin"> # </a></h3>
+<ul>
+<li><p>A thin client wholly relies on the server for client view management.</p>
+</li>
+<li><p>A server session forms the context by which views progress</p>
+</li>
+<li><p>Consider a six-page wizard:each view sequenced and sent by server.</p>
+</li>
+<li><p>Network transaction boundary on every view change.</p>
+</li>
+<li><p>Scaling is difficult with server-based sessions since a cluster node reboot drops the session and in-flight user work.Requires session replication,rerouting requests on the fly,etc.</p>
+</li>
+<li><p>Fat(Standalone) client is one which only communicates changes to model.</p>
+</li>
+<li><p>In out wizard example,user has expectation of losing data if their device reboots.Data that is submitted at end of wizard is data from every page.</p>
+</li>
+<li><p>Network transaction boundary is on reads or writes to model.</p>
+</li>
+<li><p>REST models CRUD via POST,PUT,GET,DELETE.Simple</p>
+</li>
+<li><p>Scaling is simple,any server endpoint can accept transactional requests without reference to previous transactions.</p>
+</li>
+</ul>
+<h2 id="t7Authentication (&#x8EAB;&#x4EFD;&#x8BA4;&#x8BC1;)">Authentication (&#x8EAB;&#x4EFD;&#x8BA4;&#x8BC1;) <a href="#t7Authentication (&#x8EAB;&#x4EFD;&#x8BA4;&#x8BC1;)"> # </a></h2>
+<ul>
+<li><p>Transactional systems are always based on the credentials of a requesting principal.One can&apos;t unlock or start a vehicle without a key.The key is the credentials</p>
+</li>
+<li><p>Computers systems are not different.A credential identifies a transactional counterparty.</p>
+</li>
+<li><p>For a human,a credential might be a username and password.For inter-computer communication,we might use a public/private key pair.</p>
+</li>
+<li><p>In any case,we have to decide who is presenting a command before deciding what they can do.</p>
+</li>
+</ul>
+<h2 id="t8Authorization (&#x6388;&#x6743;)">Authorization (&#x6388;&#x6743;) <a href="#t8Authorization (&#x6388;&#x6743;)"> # </a></h2>
+<ul>
+<li><p>In the example of a vehicle,the key generally grants complete operational access to the vehicle.Some vehicles have &quot;valet keys&quot; with downgraded access</p>
+</li>
+<li><p>Such access levels delineate authorizations or permissions.</p>
+</li>
+<li><p>Now scale permissions to the level of 100k people in a large organization.Example:All members may be granted office access,but each to certain campuses.Only a few members may have access ti payroll,etc.There can easily be hundreds of thousands of permissions once CRUD aspects of each one are captured.</p>
+</li>
+</ul>
+<p>s</p>
+
+        <div class="copyright">Powered by <a href="https://github.com/jaywcjlove/idoc" target="_blank">idoc</a>. Dependence <a href="https://nodejs.org">Node.js</a> run.</div>
+    </div>
+    
+</div>
+
+
+</body>
+</html>
