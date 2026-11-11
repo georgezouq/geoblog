@@ -1,1 +1,1 @@
-#  George Zou 's Persional Blog
+#  GeoBlog
